@@ -1,11 +1,11 @@
 <template>
-    <div class="multiview fullscreen">
+    <div class="multiview" id="fullscreen">
         <div>
             <cam url="http://teufel.uk.to:89/axis-cgi/jpg/image.cgi" name="cam1"></cam>
-            <cam url="http://20.1.0.11:80/axis-cgi/jpg/image.cgi" name="cam2"></cam>
+            <cam url="http://root:teufel123@20.1.0.11:80/axis-cgi/jpg/image.cgi" name="cam2"></cam>
         </div>
         <div>
-            <cam url="http://20.1.0.12:80/axis-cgi/jpg/image.cgi" name="cam3"></cam>
+            <cam url="http://root:teufel123@20.1.0.12:80/axis-cgi/jpg/image.cgi" name="cam3"></cam>
         </div>
 
     </div>

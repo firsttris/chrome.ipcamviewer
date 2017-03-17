@@ -1,7 +1,6 @@
 # ipcam viewer chrome
 
-ip-cam viewer extension for [Google Chrome](https://www.google.de/chrome/browser/desktop/) with  hot reload.   
-Focused on web-development.
+ip-cam viewer extension for [Google Chrome](https://www.google.de/chrome/browser/desktop/)
 
 ## Features
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="fullscreen">
+    <div id="fullscreen">
         <cam :url="url" :name="name"></cam>
     </div>
 </template>
