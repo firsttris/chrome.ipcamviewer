@@ -9,10 +9,13 @@
     </p>
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item" @click="settings = false, cams = true">
-        <router-link class="nav-link" v-bind:class="{ active: cams }" data-toggle="tab" role="tab" to="/cam">Cam</router-link>
+        <router-link class="nav-link" v-bind:class="{ active: cams }" data-toggle="tab" role="tab" to="/">Cam</router-link>
       </li>
       <li class="nav-item" @click="settings = true, cams = false">
         <router-link class="nav-link" v-bind:class="{ active: settings }" data-toggle="tab" role="tab" to="/settings">Settings</router-link>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" role="tab" @click="goFullscreen">Messages</a>
       </li>
     </ul>
     <router-view></router-view>
@@ -26,6 +29,11 @@
         cams: true,
         settings: false
       };
+    },
+    methods: {
+      goFullscreen() {
+        chrome.windows.update(0, { state: "fullscreen" })
+      }
     }
   };
 </script>

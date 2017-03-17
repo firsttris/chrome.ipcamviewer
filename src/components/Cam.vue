@@ -1,7 +1,6 @@
 <template>
-    <div class="image" :data-content="name" @click="isFullscreen = !isFullscreen">
-        <img :id='name' :alt="name" :src='url'
-             v-bind:class="{ fullscreen: isFullscreen }">
+    <div class="image" :data-content="name" @click="OpenInTab">
+        <img :id='name' :alt="name" :src='url'>
     </div>
 </template>
 
@@ -14,11 +13,19 @@
         isFullscreen: false
       };
     },
-    methods: {},
+    methods: {
+      OpenInTab() {
+        const camToStore = {};
+        camToStore[this.name] = { url: this.url, name: this.name };
+        chrome.storage.sync.set(camToStore, () => {
+          chrome.tabs.create({'url': chrome.extension.getURL('options.html#/'+this.name)});
+        });
+      }
+    },
     created: function () {
       const interval = 1; //Interval in seconds, to retrieve images
       setInterval(() => {
-        var now = new Date();
+        const now = new Date();
         document.getElementById(this.name).src = this.url + '?' + now.getTime();
       }, interval * 1000);
     }
@@ -56,6 +63,6 @@
     }
 
     .image:hover:after {
-        opacity: 1;
+        opacity: 0.3;
     }
 </style>
