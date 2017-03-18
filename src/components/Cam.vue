@@ -24,10 +24,12 @@
     },
     created: function () {
       const interval = 1; //Interval in seconds, to retrieve images
-      setInterval(() => {
-        const now = new Date();
-        document.getElementById(this.name).src = this.url + '?' + now.getTime();
-      }, interval * 1000);
+      if(this.url) {
+        setInterval(() => {
+          const now = new Date();
+          document.getElementById(this.name).src = this.url + '?' + now.getTime();
+        }, interval * 1000);
+      }
     }
   };
 </script>

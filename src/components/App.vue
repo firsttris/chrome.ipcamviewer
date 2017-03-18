@@ -2,7 +2,7 @@
   <div class="routing">
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item" @click="settings = false, cams = true">
-        <router-link class="nav-link" v-bind:class="{ active: cams }" data-toggle="tab" role="tab" to="/">Cam</router-link>
+        <router-link id="cam" class="nav-link" v-bind:class="{ active: cams }" data-toggle="tab" role="tab" to="/">Cam</router-link>
       </li>
       <li class="nav-item" @click="settings = true, cams = false">
         <router-link class="nav-link" v-bind:class="{ active: settings }" data-toggle="tab" role="tab" to="/settings">Settings</router-link>
@@ -12,7 +12,7 @@
       </li>
     </ul>
     <router-view></router-view>
-    <div>
+    <div class="source">
       <i class="fa fa-github" aria-hidden="true"></i>
       <a href="https://github.com/firsttris/chrome.removereload" target="_blank">Source Code</a>
       &nbsp;
@@ -45,12 +45,27 @@
         }
         enterFullscreen(document.getElementById("fullscreen"));
       }
+    },
+    created: function () {
+      console.log("router " +JSON.stringify(this.$route.meta.uri));
+      if(this.$route.meta.uri === 'settings') {
+        this.settings = true;
+        this.cam = false;
+      }
+      if(this.$route.meta.uri === 'multiview') {
+        this.settings = false;
+        this.cam = true;
+      }
     }
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .source {
+    position: absolute;
+    bottom: 0px;
+  }
   a {
     color: black;
   }

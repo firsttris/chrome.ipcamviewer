@@ -9,7 +9,8 @@
     "tabs",
     "storage",
     "browsingData",
-    "notifications"
+    "notifications",
+    "http://*/"
   ],
   "icons": {
     "16": "icons/icon16.png",

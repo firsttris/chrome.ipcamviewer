@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from "./../components/App.vue"
-import Fullscreen from "../components/Fullscreen.vue"
-import Multiview from "../components/Multiview.vue"
+import Fullscreen from './../components/Fullscreen.vue'
+import Settings from './../components/Settings.vue'
+import Multiview from './../components/Multiview.vue'
 
 Vue.use(VueRouter);
 
 const routes = [
-  {path: '/', component: Multiview},
-  { path: "*", component: Fullscreen}
+  { path: '/', name: 'multiview', component: Multiview, meta: { uri: 'multiview' } },
+  { path: '/settings', name: 'settings', component: Settings, meta: { uri: 'settings' } },
+  { path: '*', name: 'fullscreen', component: Fullscreen, meta: { uri: 'fullscreen' } }
 ];
 
 const router = new VueRouter({
