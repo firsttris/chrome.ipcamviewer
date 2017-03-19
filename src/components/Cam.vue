@@ -1,50 +1,78 @@
 <template>
-    <div class="image" :data-content="name" @click="OpenInTab">
-        <img :id='name' :alt="name" :src='url'>
+    <div class="image" :data-content="name" @click="OpenInTab" v-bind:class="{ hidden: isHidden }">
+        <img :id='name' :alt="name">
     </div>
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     components: {},
-    props: ['url', 'name'],
+    props: ['url', 'name', 'username', 'password', 'singlefull'],
     data () {
       return {
-        isFullscreen: false
+        isHidden: true,
+        fps: 1
       };
     },
     methods: {
       OpenInTab() {
         const camToStore = {};
-        camToStore[this.name] = { url: this.url, name: this.name };
-        chrome.storage.sync.set(camToStore, () => {
-          chrome.tabs.create({'url': chrome.extension.getURL('options.html#/'+this.name)});
-        });
+        if(!this.singlefull) {
+          camToStore[this.name] = {url: this.url, name: this.name, username: this.username, password: this.password};
+          chrome.storage.sync.set(camToStore, () => {
+            chrome.tabs.create({'url': chrome.extension.getURL('options.html#/' + this.name)});
+          });
+        } else {
+          chrome.tabs.query({ active: true }, function(tabs) {
+            chrome.tabs.remove(tabs[0].id);
+          });
+        }
       }
     },
     created: function () {
-      const interval = 1; //Interval in seconds, to retrieve images
-      if(this.url) {
-        setInterval(() => {
-          const now = new Date();
-          document.getElementById(this.name).src = this.url + '?' + now.getTime();
-        }, interval * 1000);
-      }
+      chrome.storage.sync.get(["fps"], (result) => {
+        if (result && result.fps) {
+          this.fps = result.fps;
+          setInterval(() => {
+            const now = new Date();
+            //document.getElementById(this.name).src = this.url + '?' + now.getTime();
+            axios({
+              method: 'get',
+              responseType: 'blob',
+              url: this.url + '?' + now.getTime(),
+              auth: {
+                username: this.username,
+                password: this.password
+              }
+            }).then((response) => {
+              //console.log(response);
+              let element = document.getElementById(this.name);
+              if(element) {
+                element.src = window.URL.createObjectURL(response.data);
+                if(this.isHidden) {
+                  this.isHidden = false;
+                }
+              }
+            })
+              .catch((error) => {
+                console.log(error);
+              });
+          }, this.fps * 1000);
+        }
+      });
     }
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .fullscreen {
-        width: 1920px;
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        z-index: 1000;
-    }
     .image {
         position: relative;
+
+    }
+    .hidden {
+        visibility: hidden;
     }
     .image img {
         width: 100%;
@@ -63,7 +91,6 @@
         transition: all 0.5s;
         -webkit-transition: all 0.5s;
     }
-
     .image:hover:after {
         opacity: 0.3;
     }

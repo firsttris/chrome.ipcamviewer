@@ -1,6 +1,6 @@
 <template>
-    <div id="fullscreen">
-        <cam :url="url" :name="name"></cam>
+    <div>
+        <cam :url="url" :name="name" :username="username" :password="password" singlefull="true"></cam>
     </div>
 </template>
 
@@ -13,7 +13,9 @@
     data () {
       return {
         url: '',
-        name: ''
+        name: '',
+        username: '',
+        password: '',
       };
     },
     methods: {},
@@ -23,6 +25,8 @@
       chrome.storage.sync.get([storageAdress], (result) => {
         this.url = result[storageAdress].url;
         this.name = result[storageAdress].name;
+        this.username = result[storageAdress].username;
+        this.password = result[storageAdress].password;
       });
     }
   };
@@ -32,5 +36,8 @@
 <style scoped>
     .image:hover:after {
         opacity: 0!important;
+    }
+    .image img {
+        width: 1920px;
     }
 </style>

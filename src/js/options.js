@@ -8,8 +8,8 @@ import Multiview from './../components/Multiview.vue'
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', name: 'multiview', component: Multiview, meta: { uri: 'multiview' } },
-  { path: '/settings', name: 'settings', component: Settings, meta: { uri: 'settings' } },
+  { path: '/multiview', name: 'multiview', component: Multiview, meta: { uri: 'multiview' } },
+  { path: '/', name: 'settings', component: Settings, meta: { uri: 'settings' } },
   { path: '*', name: 'fullscreen', component: Fullscreen, meta: { uri: 'fullscreen' } }
 ];
 
