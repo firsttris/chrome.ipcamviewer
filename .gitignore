@@ -3,4 +3,3 @@ build
 secrets.*.js
 .idea
 npm-debug.log
-release
