@@ -16,11 +16,7 @@
 
 ## Install
 
-Download Chrome Extension:   
-https://github.com/firsttris/chrome.ipcamviewer/releases   
-Open   
-chrome://extensions/  
-Drag and Drop the Extension
+https://chrome.google.com/webstore/detail/ipcam-viewer/jjfknbejnpjndceceeefmofphphjiamb
 
 ## Stack
 Chrome Extensions uses

@@ -263,16 +263,22 @@
       chrome.storage.sync.get(["connections"], (result) => {
         if (result && result.connections) {
           this.connections = result.connections;
+        } else {
+          this.saveArray();
         }
       });
       chrome.storage.sync.get(["columns"], (result) => {
         if (result && result.columns) {
           this.numberOfCols = result.columns;
+        } else {
+          this.saveColumns();
         }
       });
       chrome.storage.sync.get(["fps"], (result) => {
         if (result && result.fps) {
           this.fps = result.fps;
+        } else {
+          this.saveColumns();
         }
       });
     }

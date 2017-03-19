@@ -1,6 +1,6 @@
 {
-  "name": "IpCam Viewer",
-  "short_name": "IpCam",
+  "name": "Ipcam Viewer",
+  "short_name": "Ipcam Viewer",
   "options_page": "options.html",
   "background": {
     "page": "background.html"
