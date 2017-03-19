@@ -54,7 +54,7 @@
                     <div class="col-10">
                         <button type="button" class="btn btn-secondary" @click="createConnection">Create</button>
                         <button type="button" class="btn btn-secondary" @click="deleteConnection">Delete</button>
-                        <button type="button" class="btn btn-secondary" @click="updateConnection">Update</button>
+                        <button type="button" class="btn btn-secondary" @click="save">Save</button>
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label"></label>
                     <div class="col-10">
-                        <button type="button" class="btn btn-secondary" @click="updateConnection">Update</button>
+                        <button type="button" class="btn btn-secondary" @click="saveColumns">Save</button>
                     </div>
                 </div>
             </div>
@@ -128,16 +128,26 @@
                         </label>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label class="col-2 col-form-label"></label>
+                    <div class="col-10">
+                        <button type="button" class="btn btn-secondary" @click="saveArray">Save</button>
+                    </div>
+                </div>
             </div>
         </div>
+        <br><br>
+        <MySource></MySource>
     </div>
 </template>
 
 <script>
   import FileSaver from 'file-saver';
+  import MySource from './Source.vue';
   export default {
-    components: {},
+    components: {
+      MySource
+    },
     data () {
       return {
         fps: 1,
@@ -176,12 +186,9 @@
         this.password = '';
         this.selectedIndex = '';
       },
-      updateConnection() {
-        chrome.storage.sync.set({"columns": this.numberOfCols}, () => {
-        });
-        chrome.storage.sync.set({"fps": this.fps}, () => {
-        });
+      save() {
         if (this.name === '' || this.url === '' || this.username === '' || this.password === '') {
+          alert("Some fields are empty!");
           return;
         }
         this.connections[this.selectedIndex] = {
@@ -193,7 +200,17 @@
         chrome.storage.sync.set({"connections": this.connections}, () => {
           this.clear();
         });
-
+      },
+      saveColumns() {
+        chrome.storage.sync.set({"columns": this.numberOfCols}, () => {
+        });
+        chrome.storage.sync.set({"fps": this.fps}, () => {
+        });
+      },
+      saveArray() {
+        chrome.storage.sync.set({"connections": this.connections}, () => {
+          this.clear();
+        });
       },
       createConnection() {
         if (this.name === '' || this.url === '' || this.username === '' || this.password === '') {
@@ -267,6 +284,7 @@
     .settings {
         padding-top: 15px;
         padding-left: 35px;
+        height: 100%;
     }
 
     .show {

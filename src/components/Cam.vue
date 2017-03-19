@@ -76,6 +76,7 @@
     }
     .image img {
         width: 100%;
+        border: 1px solid black;
     }
     .image:after {
         content: attr(data-content);
