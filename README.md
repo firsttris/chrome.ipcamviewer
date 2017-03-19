@@ -1,14 +1,26 @@
 # ipcam viewer chrome
 
-ip-cam viewer extension for [Google Chrome](https://www.google.de/chrome/browser/desktop/)
+[Google Chrome](https://www.google.de/chrome/browser/desktop/) IP-Camera Viewer Extension
 
 ## Features
 
+* Stream any JPEG Source
 * Multiview
+* Fullscreen
+* Export / Import JSON File
+
+## JPEG Source Examples
+
+* INSTAR: http://20.1.0.16:80/tmpfs/snap.jpg
+* AXIS: http://20.1.0.15:80/axis-cgi/jpg/image.cgi
 
 ## Install
 
-[Chrome Webstore](https://chrome.google.com/webstore/)
+Download Chrome Extension:   
+https://github.com/firsttris/chrome.ipcamviewer/releases   
+Open   
+chrome://extensions/  
+Drag and Drop the Extension
 
 ## Stack
 Chrome Extensions uses

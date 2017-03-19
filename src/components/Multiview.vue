@@ -53,7 +53,6 @@
           chrome.storage.sync.get(["connections"], (response) => {
             if (response && response.connections) {
               if(response.connections.length === 0) {
-                //no connections
                 this.noConnections = true;
               }
               const connections = response.connections;
@@ -65,9 +64,10 @@
               this.rows = results;
             } else {
               this.noConnections = true;
-              //no connections
             }
           });
+        } else {
+          this.noConnections = true;
         }
       });
     }
