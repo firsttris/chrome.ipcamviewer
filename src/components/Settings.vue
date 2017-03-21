@@ -246,7 +246,6 @@
         if (!files.length)
           return;
         const file = files[0];
-        console.log(files);
         if (file) {
           const reader = new FileReader();
           reader.readAsText(file, "UTF-8");

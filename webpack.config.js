@@ -56,7 +56,10 @@ module.exports = {
   plugins: [
     // expose and write the allowed env vars on the compiled bundle
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "popup.html"),

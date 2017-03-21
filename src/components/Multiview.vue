@@ -60,7 +60,6 @@
               while (connections.length > 0) {
                 results.push(connections.splice(0, this.columns))
               }
-              console.log(results);
               this.rows = results;
             } else {
               this.noConnections = true;

@@ -39,6 +39,7 @@
             //document.getElementById(this.name).src = this.url + '?' + now.getTime();
             axios({
               method: 'get',
+              timeout: 5000,
               responseType: 'blob',
               url: this.url + '?' + now.getTime(),
               auth: {
@@ -46,7 +47,6 @@
                 password: this.password
               }
             }).then((response) => {
-              //console.log(response);
               let element = document.getElementById(this.name);
               if(element) {
                 element.src = window.URL.createObjectURL(response.data);
