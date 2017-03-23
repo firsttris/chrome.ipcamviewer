@@ -4,9 +4,12 @@
   "description": "Ipcam Viewer",
   "scripts": {
     "build": "node utils/build.js",
+    "build:package": "npm run build && npm run zip",
+    "zip": "bestzip bundle.zip build/",
     "start": "node utils/webserver.js"
   },
   "devDependencies": {
+    "bestzip": "^1.1.4",
     "buble": "^0.15.2",
     "buble-loader": "^0.4.1",
     "css-loader": "^0.25.0",
