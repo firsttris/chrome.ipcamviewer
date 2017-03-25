@@ -10,7 +10,9 @@
     "storage",
     "browsingData",
     "notifications",
-    "http://*/"
+    "http://*/",
+    "webRequest",
+    "webRequestBlocking"
   ],
   "icons": {
     "16": "icons/icon16.png",

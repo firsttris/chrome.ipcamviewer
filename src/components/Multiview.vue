@@ -8,18 +8,18 @@
         </div>
         <div class="row flex" v-for="row in rows">
             <div v-for="connection in row" :class="getLayout">
-                <cam :url="connection.url" :name="connection.name" :username="connection.username"
-                     :password="connection.password"></cam>
+                <Camera :url="connection.url" :name="connection.name" :username="connection.username"
+                     :password="connection.password" :type="connection.cameraType"></Camera>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-  import Cam from './Cam.vue';
+  import Camera from './Camera.vue';
   export default {
     components: {
-      Cam
+      Camera
     },
     data () {
       return {

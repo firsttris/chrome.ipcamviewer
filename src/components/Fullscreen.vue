@@ -1,14 +1,14 @@
 <template>
     <div>
-        <cam :url="url" :name="name" :username="username" :password="password" singlefull="true"></cam>
+        <Camera :url="url" :name="name" :username="username" :password="password" singlefull="true"></Camera>
     </div>
 </template>
 
 <script>
-  import Cam from './Cam.vue';
+  import Camera from './Camera.vue';
   export default {
     components: {
-        Cam
+      Camera
     },
     data () {
       return {

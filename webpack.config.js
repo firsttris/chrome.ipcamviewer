@@ -64,6 +64,10 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
+        test: /\.json$/,
+        loader: "json-loader"
+      },
+      {
         test: /\.(woff2?|woff|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {

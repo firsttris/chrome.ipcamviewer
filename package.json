@@ -16,6 +16,7 @@
     "file-loader": "^0.10.1",
     "fs-extra": "^0.30.0",
     "html-webpack-plugin": "2.24.1",
+    "json-loader": "^0.5.4",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.8",
     "vue-loader": "^11.1.4",
