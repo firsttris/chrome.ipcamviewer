@@ -1,8 +1,9 @@
 <template>
     <div class="multiview container-fluid">
-        <div class="noConnections" v-if="noConnections">
+        <div class="noConnections" v-if="noConnections || noTypeWarning">
             <br>
-            <h1>No Cameras</h1>
+            <h1 v-if="noConnections">No Cameras</h1>
+            <h1 v-if="noTypeWarning">No Type defined for Camera!</h1>
             <br>
             <button type="button" class="btn btn-secondary" @click="openSettings">Setup Connections</button>
         </div>
@@ -24,6 +25,7 @@
     data () {
       return {
         noConnections: false,
+        noTypeWarning: false,
         connections: [],
         columns: 2,
         rows: []
@@ -59,14 +61,20 @@
         if (response && response.connections) {
           if (response.connections.length === 0) {
             this.noConnections = true;
+          } else {
+            response.connections.forEach((connection) => {
+                if(connection.cameraType === undefined || connection.cameraType === '') {
+                  this.noTypeWarning = true;
+                }
+            });
+            localStorage.setItem('connections', JSON.stringify(response.connections));
+            const connections = response.connections;
+            let results = [];
+            while (connections.length > 0) {
+              results.push(connections.splice(0, this.columns))
+            }
+            this.rows = results;
           }
-          localStorage.setItem('connections', JSON.stringify(response.connections));
-          const connections = response.connections;
-          let results = [];
-          while (connections.length > 0) {
-            results.push(connections.splice(0, this.columns))
-          }
-          this.rows = results;
         } else {
           this.noConnections = true;
         }

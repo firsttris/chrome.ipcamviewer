@@ -57,12 +57,18 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label"></label>
                     <div class="col-10">
-                        <button type="button" class="btn btn-secondary" @click="showDeleteOneModal = true" :disabled="isDeletedDisabled">Delete
+                        <button type="button" class="btn btn-secondary" @click="showDeleteOneModal = true"
+                                :disabled="isDeletedDisabled">Delete
                         </button>
-                        <button type="button" class="btn btn-secondary" @click="showDeleteAllModal = true" :disabled="isDeletedAllDisabled">Delete All
+                        <button type="button" class="btn btn-secondary" @click="showDeleteAllModal = true"
+                                :disabled="isDeletedAllDisabled">Delete All
                         </button>
-                        <button type="button" class="btn btn-secondary" @click="save(true)" :disabled="isDeletedDisabled">Copy</button>
-                        <button type="button" class="btn btn-secondary" @click="save(false)" :disabled="isSaveDisabled">Save</button>
+                        <button type="button" class="btn btn-secondary" @click="save(true)"
+                                :disabled="isDeletedDisabled">Copy
+                        </button>
+                        <button type="button" class="btn btn-secondary" @click="save(false)" :disabled="isSaveDisabled">
+                            Save
+                        </button>
                     </div>
                 </div>
 
@@ -154,7 +160,7 @@
         name: '',
         ipaddress: '',
         url: '',
-        cameraTypes: { jpg: '', mjpg: ''},
+        cameraTypes: {jpg: '', mjpg: ''},
         cameraUrl: '',
         cameraType: '',
         cameraName: '',
@@ -172,10 +178,10 @@
         return (this.name === '' || this.username === '' || this.password === '' || this.url === '' || this.cameraType === '');
       },
       isDeletedDisabled: function () {
-        return (this.selectedIndex === '' || this.selectedIndex === undefined);
+        return (this.selectedIndex || this.selectedIndex === '');
       },
       isDeletedAllDisabled: function () {
-        return (this.connections.length===0);
+        return (this.connections.length === 0);
       },
       getUrl: {
         get(){
@@ -216,14 +222,21 @@
         this.resetConnection = false;
         this.name = connection.name;
         this.url = connection.url;
-        this.ipaddress = connection.ipaddress;
+        if (connection.ipaddress) {
+          this.ipaddress = connection.ipaddress;
+        }
         this.cameraUrl = connection.cameraUrl;
         this.cameraType = connection.cameraType;
-        this.cameraTypes = connection.cameraTypes;
+        if (connection.cameraTypes) {
+          this.cameraTypes = connection.cameraTypes;
+        }
         this.cameraName = connection.cameraName;
         this.username = connection.username;
         this.password = connection.password;
         this.selectedIndex = this.connections.indexOf(connection);
+      },
+      defined() {
+
       },
       reset() {
         this.name = '';
@@ -231,7 +244,7 @@
         this.cameraUrl = '';
         this.cameraType = '';
         this.cameraName = '';
-        this.cameraTypes = {};
+        this.cameraTypes = {jpg: '', mjpg: ''};
         this.ipaddress = '';
         this.username = '';
         this.password = '';
