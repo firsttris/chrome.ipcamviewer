@@ -6,7 +6,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
              v-bind:class="{ show: dropdown }">
-            <a class="dropdown-item" @click="reset(), dropdown = !dropdown">Create New</a>
+            <a class="dropdown-item" @click="reset(), dropdown = !dropdown">New</a>
             <a class="dropdown-item" v-for="connection in connections"
                @click="selectConnection(connection)">{{connection.name}}</a>
         </div>
@@ -27,10 +27,10 @@
         if (this.resetConnection) {
           this.reset();
         }
-        if (this.connection.name && this.connection.name !== '') {
+        if (this.connection.name) {
           return this.connection.name
         } else {
-          return 'None';
+          return 'New';
         }
       }
     },

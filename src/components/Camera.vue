@@ -42,11 +42,9 @@
         };
         if (!this.singlefull) {
           localStorage.setItem(this.name, JSON.stringify(connection));
-          chrome.tabs.create({'url': chrome.extension.getURL('options.html#/' + this.name)});
+          this.$router.push({ path: this.name })
         } else {
-          chrome.tabs.query({active: true}, function (tabs) {
-            chrome.tabs.remove(tabs[0].id);
-          });
+          this.$router.push({ path: 'multiview' })
         }
       },
       findObjectByPropertyInArray(nameKey, myArray){

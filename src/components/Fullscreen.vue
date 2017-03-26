@@ -21,7 +21,7 @@
     },
     methods: {},
     created: function () {
-      const storageAdress = window.location.hash.replace('#/', '');
+      const storageAdress = this.$route.path.replace('/', '');
       const storedConnectionString = localStorage.getItem(storageAdress);
       if(storedConnectionString) {
         const storedConnection = JSON.parse(storedConnectionString);
@@ -39,8 +39,5 @@
 <style scoped>
     .image:hover:after {
         opacity: 0!important;
-    }
-    .image img {
-        width: 1920px;
     }
 </style>

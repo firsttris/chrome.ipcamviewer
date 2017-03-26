@@ -29,13 +29,13 @@
     },
     computed: {
       getLabel: function () {
-        if (this.parentCameraName === '') {
+        if (!this.parentCameraName) {
           this.resetLocal();
         } else {
           this.selectedCameraName = this.parentCameraName;
           this.selectedCameraTypes = this.cams[this.parentCameraName];
         }
-        if (this.selectedCameraName === '' || this.selectedCameraName === undefined) {
+        if (!this.selectedCameraName) {
           return 'None';
         } else {
           return this.selectedCameraName;

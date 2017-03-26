@@ -1,8 +1,8 @@
 <template>
-    <div class="multiview container-fluid" v-bind:class="{ fullheight: fullheight }">
-        <div class="noConnections" v-if="noConnections || noTypeWarning">
+    <div class="multiview container-fluid" v-bind:class="{ fullHeight: fullHeight }">
+        <div class="warnings" v-if="warnings || noTypeWarning">
             <br>
-            <h1 v-if="noConnections">No Cameras</h1>
+            <h1 v-if="warnings">No Cameras</h1>
             <h1 v-if="noTypeWarning">No Type defined for Camera!</h1>
             <br>
             <button type="button" class="btn btn-secondary" @click="openSettings">Setup Connections</button>
@@ -24,9 +24,9 @@
     },
     data () {
       return {
-        noConnections: false,
+        warnings: false,
         noTypeWarning: false,
-        fullheight: false,
+        fullHeight: true,
         columns: 2,
         connections: [],
         rows: []
@@ -34,9 +34,7 @@
     },
     methods: {
       openSettings: function () {
-        chrome.tabs.create({'url': chrome.extension.getURL('options.html#/')}, function (tab) {
-          // Tab opened.
-        });
+        this.$router.push({ path: '/' });
       },
       loadLocalStorage: function () {
         this.columns = localStorage.getItem('columns');
@@ -46,11 +44,11 @@
         }
       },
       checkConnections: function () {
-        if (this.connections.length === 0) {
-          this.noConnections = true;
+        if (!this.connections.length) {
+          this.warnings = true;
         } else {
           this.connections.forEach((connection) => {
-            if (connection.cameraType === undefined || connection.cameraType === '') {
+            if (!connection.cameraType) {
               this.noTypeWarning = true;
             }
           });
@@ -67,11 +65,11 @@
     computed: {
       getLayout: function () {
         if (this.columns === '2') {
-          this.fullheight = false;
+          this.fullHeight = false;
           return 'col-6';
         }
         if (this.columns === '3') {
-          this.fullheight = true;
+          this.fullHeight = true;
           return 'col-4';
         }
       }
@@ -86,17 +84,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .fullheight {
+    .fullHeight {
         height: 100%;
     }
-    .noConnections {
+    .warnings {
         color: white;
     }
-
     .multiview {
         background: black;
     }
-
     .col-4, .col-6 {
         padding-left: 0px;
         padding-right: 0px;

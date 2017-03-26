@@ -26,13 +26,13 @@
     },
     computed: {
       getCameraType: function () {
-        if (this.parentCameraType === undefined || this.parentCameraType === '') {
+        if (!this.parentCameraType) {
           this.resetLocal();
         } else {
             this.selectCameraType = this.parentCameraType;
             this.selectedCameraUrl = this.parentCameraTypes[this.parentCameraType];
         }
-        if (this.selectCameraType === '' || this.selectCameraType === undefined) {
+        if (!this.selectCameraType) {
           return 'Type';
         } else {
           return this.selectCameraType.toUpperCase()

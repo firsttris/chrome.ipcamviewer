@@ -180,17 +180,20 @@
     },
     computed: {
       isSaveDisabled: function () {
-        return (this.name === '' || this.username === '' || this.password === '' || this.url === '' || this.cameraType === '');
+        return (!this.name || !this.username || !this.password || !this.url || !this.cameraType);
       },
       isDeletedDisabled: function () {
-        return (this.selectedIndex || this.selectedIndex === '');
+        if(this.selectedIndex === 0) {
+          return false;
+        }
+        return !this.selectedIndex
       },
       isDeletedAllDisabled: function () {
-        return (this.connections.length === 0);
+        return (!this.connections.length);
       },
       getUrl: {
         get(){
-          if (this.cameraUrl && this.cameraUrl !== '') {
+          if (this.cameraUrl) {
             this.url = 'http://' + this.ipaddress + this.cameraUrl;
           }
           return this.url;
@@ -268,7 +271,7 @@
           cameraTypes: this.cameraTypes,
           cameraName: this.cameraName
         };
-        if (this.selectedIndex !== '' && copy === false) {
+        if (this.selectedIndex && copy === false) {
           this.connections[this.selectedIndex] = connection;
         } else {
           for (const index in this.connections) {
