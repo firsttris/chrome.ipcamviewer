@@ -6,27 +6,11 @@
 
 ## Features
 
-* Stream any JPEG Source
+* Streams MJPEG & JPEG Source
+* [Camera-Presets](https://github.com/firsttris/chrome.ipcamviewer/blob/master/src/data/cameraModels.json)
 * Multiview
 * Fullscreen
 * Export / Import JSON File
-
-## JPEG Source Examples
-
-- 4XEM
-    - http://20.1.0.99/cgi-bin/video.jpg
-- 7LINK
-    - http://20.1.0.99/cgi/mjpg/mjpeg.cgi
-- ABS
-    - http://20.1.0.99/mjpg/1/video.mjpg
-- AIRLINK    
-    - http://20.1.0.99/cgi/mjpg/mjpg.cgi
-    - http://20.1.0.99/cgi/jpg/image.cgi
-- INSTAR 
-    - http://20.1.0.99:80/tmpfs/snap.jpg
-- AXIS: 
-    - http://20.1.0.99:80/axis-cgi/jpg/image.cgi
-    - http://20.1.0.99/axis-cgi/mjpg/video.cgi
 
 ## Install
 
