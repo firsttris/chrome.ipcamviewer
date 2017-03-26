@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import {createNotification} from './../js/notification';
   export default {
     props: [],
     data () {
@@ -35,6 +36,7 @@
       },
       saveFps: function () {
         localStorage.setItem('fps', this.fps);
+        createNotification("Settings Saved");
       }
     },
     created: function () {

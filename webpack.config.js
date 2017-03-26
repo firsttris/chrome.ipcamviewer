@@ -59,6 +59,7 @@ module.exports = {
     rules: [
       {test: /\.js$/, loader: "buble-loader"},
       {test: /\.css$/, loader: "style-loader!css-loader"},
+      {test: /\.styl/, loader: 'css-loader!stylus-loader'},
       {
         test: /\.vue$/,
         loader: 'vue-loader'

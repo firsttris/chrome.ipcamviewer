@@ -42,7 +42,7 @@
       },
       reset: function () {
         this.connection = {};
-        this.$emit('clear')
+        this.$emit('reset')
       },
       toggle: function () {
         this.dropdown = !this.dropdown;

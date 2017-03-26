@@ -16,6 +16,7 @@
 </template>
 
 <script>
+  import {createNotification} from './../js/notification';
   export default {
     props: [],
     data () {
@@ -38,6 +39,7 @@
       },
       saveColumns: function () {
         localStorage.setItem('columns', this.columns);
+        createNotification("Settings Saved");
       }
     },
     created: function () {

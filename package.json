@@ -18,6 +18,8 @@
     "html-webpack-plugin": "2.24.1",
     "json-loader": "^0.5.4",
     "style-loader": "^0.13.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.4",

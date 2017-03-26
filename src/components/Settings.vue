@@ -6,14 +6,20 @@
                 <div class="form-group row">
                     <label for="url" class="col-2 col-form-label">Select</label>
                     <div class="col-10">
-                        <ConnectionsDropdown v-on:selectConnection="selectConnection"  v-on:clear="clear" :connections="connections" :resetConnection="resetConnection"></ConnectionsDropdown>
+                        <ConnectionsDropdown v-on:selectConnection="selectConnection" v-on:reset="reset"
+                                             :connections="connections"
+                                             :resetConnection="resetConnection"></ConnectionsDropdown>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="url" class="col-2 col-form-label">Select</label>
                     <div class="col-10">
-                        <CameraModelDropdown v-on:selectCameraModel="selectCameraModel" v-on:resetCameraName="resetCameraName" :parentCameraName="cameraName"></CameraModelDropdown>
-                        <CameraTypeDropdown v-on:selectCameraUrl="selectCameraUrl" v-on:resetCameraType="resetCameraType" :parentCameraTypes="cameraTypes" :parentCameraType="cameraType"></CameraTypeDropdown>
+                        <CameraModelDropdown v-on:selectCameraModel="selectCameraModel"
+                                             v-on:resetCameraName="resetCameraName"
+                                             :parentCameraName="cameraName"></CameraModelDropdown>
+                        <CameraTypeDropdown v-on:selectCameraUrl="selectCameraUrl"
+                                            v-on:resetCameraType="resetCameraType" :parentCameraTypes="cameraTypes"
+                                            :parentCameraType="cameraType"></CameraTypeDropdown>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -51,9 +57,12 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label"></label>
                     <div class="col-10">
-                        <button type="button" class="btn btn-secondary" @click="save(true)">Copy</button>
-                        <button type="button" class="btn btn-secondary" @click="deleteConnection">Delete</button>
-                        <button type="button" class="btn btn-secondary" @click="save(false)">Save</button>
+                        <button type="button" class="btn btn-secondary" @click="showDeleteOneModal = true" :disabled="isDeletedDisabled">Delete
+                        </button>
+                        <button type="button" class="btn btn-secondary" @click="showDeleteAllModal = true" :disabled="isDeletedAllDisabled">Delete All
+                        </button>
+                        <button type="button" class="btn btn-secondary" @click="save(true)" :disabled="isDeletedDisabled">Copy</button>
+                        <button type="button" class="btn btn-secondary" @click="save(false)" :disabled="isSaveDisabled">Save</button>
                     </div>
                 </div>
 
@@ -99,6 +108,24 @@
         </div>
         <br><br>
         <MySource></MySource>
+        <CustomPopup v-if="showDeleteOneModal" @close="showDeleteOneModal = false">
+            <h3 slot="header">Delete Connection</h3>
+            <div slot="body">Are you sure you want to delete {{name}}?</div>
+            <div slot="footer">
+                <button @click="showDeleteOneModal = false" class="btn btn-secondary">No</button>
+                <button v-on:click="deleteConnection(), showDeleteOneModal = false" class="btn btn-secondary">Yes
+                </button>
+            </div>
+        </CustomPopup>
+        <CustomPopup v-if="showDeleteAllModal" @close="showDeleteAllModal = false">
+            <h3 slot="header">Delete all Connections</h3>
+            <div slot="body">Are you sure you want to delete all Connections?</div>
+            <div slot="footer">
+                <button @click="showDeleteAllModal = false" class="btn btn-secondary">No</button>
+                <button v-on:click="deleteAllConnections(), showDeleteAllModal = false" class="btn btn-secondary">Yes
+                </button>
+            </div>
+        </CustomPopup>
     </div>
 </template>
 
@@ -110,6 +137,8 @@
   import CameraModelDropdown from './CameraModelDropdown.vue';
   import FpsDropdown from './FpsDropdown.vue';
   import ColumnsDropdown from './ColumnsDropdown.vue';
+  import CustomPopup from './Popup.vue';
+  import {createNotification} from './../js/notification';
   export default {
     components: {
       MySource,
@@ -117,24 +146,37 @@
       CameraTypeDropdown,
       CameraModelDropdown,
       FpsDropdown,
-      ColumnsDropdown
+      ColumnsDropdown,
+      CustomPopup
     },
     data () {
       return {
         name: '',
         ipaddress: '',
         url: '',
-        cameraTypes: {},
+        cameraTypes: { jpg: '', mjpg: ''},
         cameraUrl: '',
         cameraType: '',
-        cameraName:'',
+        cameraName: '',
         username: '',
         password: '',
         connections: [],
-        resetConnection: false
+        selectedIndex: '',
+        resetConnection: false,
+        showDeleteOneModal: false,
+        showDeleteAllModal: false
       };
     },
     computed: {
+      isSaveDisabled: function () {
+        return (this.name === '' || this.username === '' || this.password === '' || this.url === '' || this.cameraType === '');
+      },
+      isDeletedDisabled: function () {
+        return (this.selectedIndex === '' || this.selectedIndex === undefined);
+      },
+      isDeletedAllDisabled: function () {
+        return (this.connections.length===0);
+      },
       getUrl: {
         get(){
           if (this.cameraUrl && this.cameraUrl !== '') {
@@ -183,7 +225,7 @@
         this.password = connection.password;
         this.selectedIndex = this.connections.indexOf(connection);
       },
-      clear() {
+      reset() {
         this.name = '';
         this.url = '';
         this.cameraUrl = '';
@@ -223,11 +265,16 @@
       },
       saveConnections() {
         chrome.storage.sync.set({"connections": this.connections}, () => {
-          this.clear();
+          createNotification("Settings Saved");
+          this.reset();
         });
       },
       deleteConnection() {
         this.connections.splice(this.selectedIndex, 1);
+        this.saveConnections();
+      },
+      deleteAllConnections() {
+        this.connections = [];
         this.saveConnections();
       },
       exportConnections() {
@@ -270,6 +317,7 @@
     .settings {
         width: 500px;
     }
+
     .settings {
         padding-top: 15px;
         padding-left: 35px;

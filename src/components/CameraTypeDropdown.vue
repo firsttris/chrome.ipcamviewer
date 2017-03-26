@@ -26,7 +26,7 @@
     },
     computed: {
       getCameraType: function () {
-        if (this.parentCameraType === '') {
+        if (this.parentCameraType === undefined || this.parentCameraType === '') {
           this.resetLocal();
         } else {
             this.selectCameraType = this.parentCameraType;
