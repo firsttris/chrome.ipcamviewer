@@ -18,7 +18,6 @@
 <style>
     html,.routing {
         height: 100%;
-        background: white;
     }
     .routing {
         -webkit-touch-callout: none;

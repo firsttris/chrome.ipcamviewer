@@ -9,7 +9,7 @@
              v-bind:class="{ show: dropdown }">
             <a class="dropdown-item" @click="resetParent()">None</a>
             <a class="dropdown-item" v-for="(cameraUrl, cameraType) in parentCameraTypes"
-               @click="selectCameraUrl(cameraUrl, cameraType)">{{cameraType}}</a>
+               @click="selectCameraUrl(cameraUrl, cameraType)">{{cameraType.toUpperCase()}}</a>
         </div>
     </div>
 </template>
@@ -33,9 +33,9 @@
             this.selectedCameraUrl = this.parentCameraTypes[this.parentCameraType];
         }
         if (this.selectCameraType === '' || this.selectCameraType === undefined) {
-          return 'CameraType';
+          return 'Type';
         } else {
-          return this.selectCameraType
+          return this.selectCameraType.toUpperCase()
         }
       }
     },

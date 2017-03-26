@@ -33,7 +33,13 @@
         }
       },
       OpenInTab() {
-        const connection = {url: this.url, name: this.name, username: this.username, password: this.password, type: this.type };
+        const connection = {
+          url: this.url,
+          name: this.name,
+          username: this.username,
+          password: this.password,
+          type: this.type
+        };
         if (!this.singlefull) {
           localStorage.setItem(this.name, JSON.stringify(connection));
           chrome.tabs.create({'url': chrome.extension.getURL('options.html#/' + this.name)});
@@ -43,12 +49,23 @@
           });
         }
       },
+      findObjectByPropertyInArray(nameKey, myArray){
+        for (var i = 0; i < myArray.length; i++) {
+          if (myArray[i].url === nameKey) {
+            return myArray[i];
+          }
+        }
+      },
       addBasicAuthToRequestHeader() {
         chrome.webRequest.onBeforeSendHeaders.addListener(
           (details) => {
-            const basicAuth = {name: 'Authorization', value: "Basic " + btoa(this.username + ":" + this.password)};
-            details.requestHeaders.push(basicAuth);
-            return {requestHeaders: details.requestHeaders};
+            const connections = JSON.parse(localStorage.getItem('connections'));
+            const connection = this.findObjectByPropertyInArray(details.url, connections);
+            if(connection) {
+              const basicAuth = {name: 'Authorization', value: "Basic " + btoa(connection.username + ":" + connection.password)};
+              details.requestHeaders.push(basicAuth);
+              return {requestHeaders: details.requestHeaders};
+            }
           },
           {urls: ["<all_urls>"]},
           ["blocking", "requestHeaders"]);
@@ -80,7 +97,6 @@
       }
     },
     created: function () {
-      console.log("type: " + this.type);
       if (this.type === 'jpg') {
         this.getImageFromCamera();
       }

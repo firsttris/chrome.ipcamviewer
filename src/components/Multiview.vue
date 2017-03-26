@@ -34,10 +34,17 @@
         chrome.tabs.create({'url': chrome.extension.getURL('options.html#/')}, function (tab) {
           // Tab opened.
         });
+      },
+      setBlackBackground: function () {
+        const element = document.getElementsByClassName("routing")[0];
+        if (element) {
+          element.style.background = 'Black';
+        }
       }
     },
     computed: {
       getLayout: function () {
+        this.setBlackBackground();
         if (this.columns === '2') {
           return 'col-6';
         }
@@ -53,6 +60,7 @@
           if (response.connections.length === 0) {
             this.noConnections = true;
           }
+          localStorage.setItem('connections', JSON.stringify(response.connections));
           const connections = response.connections;
           let results = [];
           while (connections.length > 0) {
@@ -74,17 +82,11 @@
     }
 
     .multiview {
-        height: 100%;
-        background-color: black;
+        background: black;
     }
 
     .col-4, .col-6 {
         padding-left: 0px;
         padding-right: 0px;
-    }
-</style>
-<style>
-    html {
-        background: black;
     }
 </style>

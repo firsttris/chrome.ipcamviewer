@@ -26,13 +26,6 @@
       };
     },
     computed: {
-      getLabel: function () {
-        if (this.selectedCameraName !== '') {
-          return this.selectedCameraName
-        } else {
-          return 'Present';
-        }
-      }
     },
     methods: {
       selectFps: function (fps) {

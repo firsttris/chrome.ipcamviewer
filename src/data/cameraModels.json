@@ -138,6 +138,10 @@
     "IPCAM": {
         "mjpg": "/videostream.cgi"
     },
+    "INSTAR": {
+        "jpg": "/tmpfs/snap.jpg",
+        "mjpg": "/cgi-bin/hi3510/mjpegstream.cgi?-chn=11"
+    },
     "JVC": {
         "jpg": "/cgi-bin/video.jpg"
     },

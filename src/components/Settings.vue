@@ -1,15 +1,17 @@
 <template>
-    <div class="settings container-fluid">
+    <div class="settings">
         <div class="row">
-            <h1>Ipcamviewer Settings</h1>
-        </div>
-        <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <h3>Connections</h3>
                 <div class="form-group row">
                     <label for="url" class="col-2 col-form-label">Select</label>
                     <div class="col-10">
                         <ConnectionsDropdown v-on:selectConnection="selectConnection"  v-on:clear="clear" :connections="connections" :resetConnection="resetConnection"></ConnectionsDropdown>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="url" class="col-2 col-form-label">Select</label>
+                    <div class="col-10">
                         <CameraModelDropdown v-on:selectCameraModel="selectCameraModel" v-on:resetCameraName="resetCameraName" :parentCameraName="cameraName"></CameraModelDropdown>
                         <CameraTypeDropdown v-on:selectCameraUrl="selectCameraUrl" v-on:resetCameraType="resetCameraType" :parentCameraTypes="cameraTypes" :parentCameraType="cameraType"></CameraTypeDropdown>
                     </div>
@@ -58,7 +60,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <h3>Viewer Settings</h3>
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Columns</label>
@@ -75,12 +77,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
-                <h3>Backup & Restore</h3>
+            <div class="col-12">
+                <h3>Export & Import</h3>
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Backup</label>
                     <div class="col-10">
-                        <button type="button" class="btn btn-secondary" @click="exportConnections">Export to JSON
+                        <button type="button" class="btn btn-secondary" @click="exportConnections">Export JSON
                         </button>
                     </div>
                 </div>
@@ -135,7 +137,7 @@
     computed: {
       getUrl: {
         get(){
-          if (this.cameraUrl !== '') {
+          if (this.cameraUrl && this.cameraUrl !== '') {
             this.url = 'http://' + this.ipaddress + this.cameraUrl;
           }
           return this.url;
@@ -149,12 +151,18 @@
       resetCameraName() {
         this.cameraName = '';
         this.cameraType = '';
+        this.cameraUrl = '';
+        this.url = '';
       },
       resetCameraType() {
         this.cameraType = '';
+        this.cameraUrl = '';
+        this.url = '';
       },
       selectCameraModel(params) {
         this.cameraType = '';
+        this.cameraUrl = '';
+        this.url = '';
         this.cameraTypes = params.cameraTypes;
         this.cameraName = params.cameraName;
       },
@@ -167,6 +175,7 @@
         this.name = connection.name;
         this.url = connection.url;
         this.ipaddress = connection.ipaddress;
+        this.cameraUrl = connection.cameraUrl;
         this.cameraType = connection.cameraType;
         this.cameraTypes = connection.cameraTypes;
         this.cameraName = connection.cameraName;
@@ -194,6 +203,7 @@
           ipaddress: this.ipaddress,
           username: this.username,
           password: this.password,
+          cameraUrl: this.cameraUrl,
           cameraType: this.cameraType,
           cameraTypes: this.cameraTypes,
           cameraName: this.cameraName
@@ -218,9 +228,7 @@
       },
       deleteConnection() {
         this.connections.splice(this.selectedIndex, 1);
-        chrome.storage.sync.set({"connections": this.connections}, () => {
-          this.clear();
-        });
+        this.saveConnections();
       },
       exportConnections() {
         const blob = new Blob([JSON.stringify(this.connections, null, 4)], {type: "text/plain;charset=utf-8"});
@@ -260,9 +268,17 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .settings {
+        width: 500px;
+    }
+    .settings {
         padding-top: 15px;
         padding-left: 35px;
         height: 100%;
+    }
+
+    h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     .show {

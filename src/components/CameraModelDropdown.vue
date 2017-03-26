@@ -36,7 +36,7 @@
           this.selectedCameraTypes = this.cams[this.parentCameraName];
         }
         if (this.selectedCameraName === '' || this.selectedCameraName === undefined) {
-          return 'Present';
+          return 'Preset';
         } else {
           return this.selectedCameraName;
         }
