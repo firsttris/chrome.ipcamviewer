@@ -1,5 +1,5 @@
 <template>
-    <div class="multiview container-fluid">
+    <div class="multiview container-fluid" v-bind:class="{ fullheight: fullheight }">
         <div class="noConnections" v-if="noConnections || noTypeWarning">
             <br>
             <h1 v-if="noConnections">No Cameras</h1>
@@ -26,8 +26,9 @@
       return {
         noConnections: false,
         noTypeWarning: false,
-        connections: [],
+        fullheight: false,
         columns: 2,
+        connections: [],
         rows: []
       };
     },
@@ -37,54 +38,57 @@
           // Tab opened.
         });
       },
-      setBlackBackground: function () {
-        const element = document.getElementsByClassName("routing")[0];
-        if (element) {
-          element.style.background = 'Black';
+      loadLocalStorage: function () {
+        this.columns = localStorage.getItem('columns');
+        const connectionsString = localStorage.getItem('connections');
+        if (connectionsString) {
+          this.connections = JSON.parse(connectionsString);
         }
-      }
+      },
+      checkConnections: function () {
+        if (this.connections.length === 0) {
+          this.noConnections = true;
+        } else {
+          this.connections.forEach((connection) => {
+            if (connection.cameraType === undefined || connection.cameraType === '') {
+              this.noTypeWarning = true;
+            }
+          });
+        }
+      },
+      createRowsForColumns: function () {
+        let results = [];
+        while (this.connections.length > 0) {
+          results.push(this.connections.splice(0, this.columns))
+        }
+        this.rows = results;
+      },
     },
     computed: {
       getLayout: function () {
-        this.setBlackBackground();
         if (this.columns === '2') {
+          this.fullheight = false;
           return 'col-6';
         }
         if (this.columns === '3') {
+          this.fullheight = true;
           return 'col-4';
         }
       }
     },
     created: function () {
-      this.columns = localStorage.getItem('columns');
-      chrome.storage.sync.get(["connections"], (response) => {
-        if (response && response.connections) {
-          if (response.connections.length === 0) {
-            this.noConnections = true;
-          } else {
-            response.connections.forEach((connection) => {
-                if(connection.cameraType === undefined || connection.cameraType === '') {
-                  this.noTypeWarning = true;
-                }
-            });
-            localStorage.setItem('connections', JSON.stringify(response.connections));
-            const connections = response.connections;
-            let results = [];
-            while (connections.length > 0) {
-              results.push(connections.splice(0, this.columns))
-            }
-            this.rows = results;
-          }
-        } else {
-          this.noConnections = true;
-        }
-      });
+      this.loadLocalStorage();
+      this.checkConnections();
+      this.createRowsForColumns();
     }
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .fullheight {
+        height: 100%;
+    }
     .noConnections {
         color: white;
     }

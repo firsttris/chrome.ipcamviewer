@@ -277,6 +277,7 @@
         this.saveConnections();
       },
       saveConnections() {
+        localStorage.setItem('connections', JSON.stringify(this.connections));
         chrome.storage.sync.set({"connections": this.connections}, () => {
           createNotification("Settings Saved");
           this.reset();
@@ -311,16 +312,16 @@
             console.log("error reading file " + evt);
           }
         }
+      },
+      loadLocalStorage: function () {
+        const connectionsString = localStorage.getItem('connections');
+        if (connectionsString) {
+          this.connections = JSON.parse(connectionsString);
+        }
       }
     },
     created: function () {
-      chrome.storage.sync.get(["connections"], (result) => {
-        if (result && result.connections) {
-          this.connections = result.connections;
-        } else {
-          this.saveConnections();
-        }
-      });
+      this.loadLocalStorage();
     }
   };
 </script>
