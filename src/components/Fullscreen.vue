@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Camera :url="url" :name="name" :username="username" :password="password" singlefull="true"></Camera>
+        <Camera :url="url" :type="type" :name="name" :username="username" :password="password" singlefull="true"></Camera>
     </div>
 </template>
 
@@ -13,6 +13,7 @@
     data () {
       return {
         url: '',
+        type: '',
         name: '',
         username: '',
         password: '',
@@ -20,14 +21,16 @@
     },
     methods: {},
     created: function () {
-      this.subPath = window.location.hash.replace('#/', '');
       const storageAdress = window.location.hash.replace('#/', '');
-      chrome.storage.sync.get([storageAdress], (result) => {
-        this.url = result[storageAdress].url;
-        this.name = result[storageAdress].name;
-        this.username = result[storageAdress].username;
-        this.password = result[storageAdress].password;
-      });
+      const storedConnectionString = localStorage.getItem(storageAdress);
+      if(storedConnectionString) {
+        const storedConnection = JSON.parse(storedConnectionString);
+        this.url = storedConnection.url;
+        this.name = storedConnection.name;
+        this.password = storedConnection.password;
+        this.username = storedConnection.username;
+        this.type = storedConnection.type;
+      }
     }
   };
 </script>

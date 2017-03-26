@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import cameras from './../data/new2.json';
+  import cameras from './../data/cameraModels.json';
   export default {
     props: ['parentCameraName'],
     data () {

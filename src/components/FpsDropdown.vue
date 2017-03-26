@@ -41,18 +41,16 @@
         this.saveFps();
       },
       saveFps: function () {
-        chrome.storage.sync.set({"fps": this.fps}, () => {
-        });
+        localStorage.setItem('fps', this.fps);
       }
     },
     created: function () {
-      chrome.storage.sync.get(["fps"], (result) => {
-        if (result && result.fps) {
-          this.fps = result.fps;
-        } else {
-          this.saveFps();
-        }
-      });
+      const fps = localStorage.getItem('fps');
+      if(fps) {
+        this.fps = fps
+      } else {
+        this.saveFps();
+      }
     }
   };
 </script>

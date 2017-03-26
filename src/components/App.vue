@@ -18,11 +18,13 @@
 <style>
     html,.routing {
         height: 100%;
+        background: white;
     }
     .routing {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
     }
+
 </style>
 <style lang="css" src="./../../node_modules/bootstrap/dist/css/bootstrap.css">
 </style>

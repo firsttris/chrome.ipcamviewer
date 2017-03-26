@@ -37,18 +37,16 @@
         this.dropdown = !this.dropdown;
       },
       saveColumns: function () {
-        chrome.storage.sync.set({"columns": this.columns}, () => {
-        });
+        localStorage.setItem('columns', this.columns);
       }
     },
     created: function () {
-      chrome.storage.sync.get(["columns"], (result) => {
-        if (result && result.columns) {
-          this.columns = result.columns;
-        } else {
-          this.saveColumns();
-        }
-      });
+      const columns = localStorage.getItem('columns');
+      if(columns) {
+        this.columns = columns
+      } else {
+        this.saveColumns();
+      }
     }
   };
 </script>

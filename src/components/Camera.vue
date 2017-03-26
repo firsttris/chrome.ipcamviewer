@@ -8,7 +8,7 @@
   import axios from 'axios';
   export default {
     components: {},
-    props: ['url', 'name', 'username', 'password', 'singlefull', 'type'],
+    props: ['url', 'name', 'username', 'password', 'type', 'singlefull'],
     data () {
       return {
         isHidden: true,
@@ -18,61 +18,32 @@
     computed: {
       getUrl: function () {
         if (this.type === 'mjpg') {
-          if (this.isHidden) {
-            this.isHidden = false;
-          }
+          this.showIfHidden();
           return this.url;
+        }
+        if (this.type === 'jpg') {
+          return '';
         }
       }
     },
     methods: {
+      showIfHidden() {
+        if (this.isHidden) {
+          this.isHidden = false;
+        }
+      },
       OpenInTab() {
-        const camToStore = {};
+        const connection = {url: this.url, name: this.name, username: this.username, password: this.password, type: this.type };
         if (!this.singlefull) {
-          camToStore[this.name] = {url: this.url, name: this.name, username: this.username, password: this.password};
-          chrome.storage.sync.set(camToStore, () => {
-            chrome.tabs.create({'url': chrome.extension.getURL('options.html#/' + this.name)});
-          });
+          localStorage.setItem(this.name, JSON.stringify(connection));
+          chrome.tabs.create({'url': chrome.extension.getURL('options.html#/' + this.name)});
         } else {
           chrome.tabs.query({active: true}, function (tabs) {
             chrome.tabs.remove(tabs[0].id);
           });
         }
-      }
-    },
-    created: function () {
-      if (this.type !== 'mjpg') {
-        chrome.storage.sync.get(["fps"], (result) => {
-          if (result && result.fps) {
-            this.fps = result.fps;
-            setInterval(() => {
-              const now = new Date();
-              //document.getElementById(this.name).src = this.url + '?' + now.getTime();
-              axios({
-                method: 'get',
-                timeout: 5000,
-                responseType: 'blob',
-                url: this.url + '?' + now.getTime(),
-                auth: {
-                  username: this.username,
-                  password: this.password
-                }
-              }).then((response) => {
-                let element = document.getElementById(this.name);
-                if (element) {
-                  element.src = window.URL.createObjectURL(response.data);
-                  if (this.isHidden) {
-                    this.isHidden = false;
-                  }
-                }
-              })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }, this.fps * 1000);
-          }
-        });
-      } else {
+      },
+      addBasicAuthToRequestHeader() {
         chrome.webRequest.onBeforeSendHeaders.addListener(
           (details) => {
             const basicAuth = {name: 'Authorization', value: "Basic " + btoa(this.username + ":" + this.password)};
@@ -81,6 +52,40 @@
           },
           {urls: ["<all_urls>"]},
           ["blocking", "requestHeaders"]);
+      },
+      getImageFromCamera() {
+        this.fps = localStorage.getItem('fps');
+        setInterval(() => {
+          const now = new Date();
+          axios({
+            method: 'get',
+            timeout: 5000,
+            responseType: 'blob',
+            url: this.url + '?' + now.getTime(),
+            auth: {
+              username: this.username,
+              password: this.password
+            }
+          }).then((response) => {
+            let element = document.getElementById(this.name);
+            if (element) {
+              element.src = window.URL.createObjectURL(response.data);
+              this.showIfHidden();
+            }
+          })
+            .catch((error) => {
+              console.log(error);
+            });
+        }, this.fps * 1000);
+      }
+    },
+    created: function () {
+      console.log("type: " + this.type);
+      if (this.type === 'jpg') {
+        this.getImageFromCamera();
+      }
+      if (this.type === 'mjpg') {
+        this.addBasicAuthToRequestHeader();
       }
     }
   };
@@ -90,7 +95,6 @@
 <style scoped>
     .image {
         position: relative;
-
     }
 
     .hidden {
