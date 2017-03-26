@@ -30,7 +30,7 @@
         if (this.connection.name && this.connection.name !== '') {
           return this.connection.name
         } else {
-          return 'Camera';
+          return 'None';
         }
       }
     },

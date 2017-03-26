@@ -4,59 +4,64 @@
             <div class="col-12">
                 <h3>Connections</h3>
                 <div class="form-group row">
-                    <label for="url" class="col-2 col-form-label">Select</label>
-                    <div class="col-10">
+                    <label for="url" class="col-3 col-form-label">Camera</label>
+                    <div class="col-9">
                         <ConnectionsDropdown v-on:selectConnection="selectConnection" v-on:reset="reset"
                                              :connections="connections"
                                              :resetConnection="resetConnection"></ConnectionsDropdown>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="url" class="col-2 col-form-label">Select</label>
-                    <div class="col-10">
+                    <label for="url" class="col-3 col-form-label">Model</label>
+                    <div class="col-9">
                         <CameraModelDropdown v-on:selectCameraModel="selectCameraModel"
                                              v-on:resetCameraName="resetCameraName"
                                              :parentCameraName="cameraName"></CameraModelDropdown>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="url" class="col-3 col-form-label">Type *</label>
+                    <div class="col-9">
                         <CameraTypeDropdown v-on:selectCameraUrl="selectCameraUrl"
                                             v-on:resetCameraType="resetCameraType" :parentCameraTypes="cameraTypes"
                                             :parentCameraType="cameraType"></CameraTypeDropdown>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="name" class="col-2 col-form-label">Name</label>
-                    <div class="col-10">
+                    <label for="name" class="col-3 col-form-label">Name *</label>
+                    <div class="col-9">
                         <input class="form-control" type="text" placeholder="Camera Name" id="name" v-model="name">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="ipaddress" class="col-2 col-form-label">Address</label>
-                    <div class="col-10">
+                    <label for="ipaddress" class="col-3 col-form-label">Address *</label>
+                    <div class="col-9">
                         <input class="form-control" type="text" placeholder="Ip-Address" id="ipaddress"
                                v-model="ipaddress">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="url" class="col-2 col-form-label">Url</label>
-                    <div class="col-10">
+                    <label for="url" class="col-3 col-form-label">Url *</label>
+                    <div class="col-9">
                         <input class="form-control" type="text" placeholder="Url" id="url" v-model="getUrl">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="username" class="col-2 col-form-label">Username</label>
-                    <div class="col-10">
+                    <label for="username" class="col-3 col-form-label">Username *</label>
+                    <div class="col-9">
                         <input class="form-control" type="text" placeholder="Username" id="username" v-model="username">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="password" class="col-2 col-form-label">Password</label>
-                    <div class="col-10">
+                    <label for="password" class="col-3 col-form-label">Password *</label>
+                    <div class="col-9">
                         <input class="form-control" type="password" placeholder="Password" id="password"
                                v-model="password">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label"></label>
-                    <div class="col-10">
+                    <label class="col-3 col-form-label"></label>
+                    <div class="col-9">
                         <button type="button" class="btn btn-secondary" @click="showDeleteOneModal = true"
                                 :disabled="isDeletedDisabled">Delete
                         </button>
@@ -78,14 +83,14 @@
             <div class="col-12">
                 <h3>Viewer Settings</h3>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label">Columns</label>
-                    <div class="col-10">
+                    <label class="col-3 col-form-label">Columns</label>
+                    <div class="col-9">
                         <ColumnsDropdown></ColumnsDropdown>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label">FPS</label>
-                    <div class="col-10">
+                    <label class="col-3 col-form-label">FPS</label>
+                    <div class="col-9">
                         <FpsDropdown></FpsDropdown>
                     </div>
                 </div>
@@ -95,15 +100,15 @@
             <div class="col-12">
                 <h3>Export & Import</h3>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label">Backup</label>
-                    <div class="col-10">
+                    <label class="col-3 col-form-label">Backup</label>
+                    <div class="col-9">
                         <button type="button" class="btn btn-secondary" @click="exportConnections">Export JSON
                         </button>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label">Restore</label>
-                    <div class="col-10">
+                    <label class="col-3 col-form-label">Restore</label>
+                    <div class="col-9">
                         <label class="btn btn-secondary" for="my-file-selector">
                             <input id="my-file-selector" type="file" style="display:none;" @change="importConnections">
                             Import JSON
