@@ -1,6 +1,6 @@
 {
   "name": "IpcamViewer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Ipcam Viewer",
   "scripts": {
     "build": "node utils/build.js",
