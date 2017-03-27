@@ -47,28 +47,7 @@
           this.$router.push({ path: 'multiview' })
         }
       },
-      findObjectByPropertyInArray(nameKey, myArray){
-        for (let i = 0; i < myArray.length; i++) {
-          if (myArray[i].url === nameKey) {
-            return myArray[i];
-          }
-        }
-      },
-      addBasicAuthToRequestHeader() {
-        chrome.webRequest.onBeforeSendHeaders.addListener(
-          (details) => {
-            const connections = JSON.parse(localStorage.getItem('connections'));
-            const connection = this.findObjectByPropertyInArray(details.url, connections);
-            if(connection) {
-              const basicAuth = {name: 'Authorization', value: "Basic " + btoa(connection.username + ":" + connection.password)};
-              details.requestHeaders.push(basicAuth);
-              return {requestHeaders: details.requestHeaders};
-            }
-          },
-          {urls: ["<all_urls>"]},
-          ["blocking", "requestHeaders"]);
-      },
-      getImageFromCamera() {
+      createTriggerForCamera() {
         this.fps = localStorage.getItem('fps');
         setInterval(() => {
           const now = new Date();
@@ -96,10 +75,7 @@
     },
     created: function () {
       if (this.type === 'jpg') {
-        this.getImageFromCamera();
-      }
-      if (this.type === 'mjpg') {
-        this.addBasicAuthToRequestHeader();
+        this.createTriggerForCamera();
       }
     }
   };

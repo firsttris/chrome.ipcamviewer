@@ -243,9 +243,6 @@
         this.password = connection.password;
         this.selectedIndex = this.connections.indexOf(connection);
       },
-      defined() {
-
-      },
       reset() {
         this.name = '';
         this.url = '';
