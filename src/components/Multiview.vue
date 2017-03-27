@@ -64,6 +64,10 @@
     },
     computed: {
       getLayout: function () {
+        if (this.columns === '1') {
+          this.fullHeight = false;
+          return 'col-12';
+        }
         if (this.columns === '2') {
           this.fullHeight = false;
           return 'col-6';
@@ -93,7 +97,7 @@
     .multiview {
         background: black;
     }
-    .col-4, .col-6 {
+    .col-4, .col-6, .col-12 {
         padding-left: 0px;
         padding-right: 0px;
     }

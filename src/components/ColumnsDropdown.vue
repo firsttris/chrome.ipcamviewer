@@ -8,6 +8,8 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
              v-bind:class="{ show: dropdown }">
             <a class="dropdown-item"
+               @click="selectColumns(1)">1</a>
+            <a class="dropdown-item"
                @click="selectColumns(2)">2</a>
             <a class="dropdown-item"
                @click="selectColumns(3)">3</a>
