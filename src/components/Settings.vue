@@ -268,7 +268,7 @@
           cameraTypes: this.cameraTypes,
           cameraName: this.cameraName
         };
-        if (this.selectedIndex && copy === false) {
+        if (this.selectedIndex !== '' && copy === false) {
           this.connections[this.selectedIndex] = connection;
         } else {
           for (const index in this.connections) {
