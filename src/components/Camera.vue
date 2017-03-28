@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   export default {
     components: {},
     props: ['url', 'name', 'username', 'password', 'type', 'singlefull'],
@@ -17,13 +16,8 @@
     },
     computed: {
       getUrl: function () {
-        if (this.type === 'mjpg') {
-          this.showIfHidden();
-          return this.url;
-        }
-        if (this.type === 'jpg') {
-          return '';
-        }
+        this.showIfHidden();
+        return this.url;
       }
     },
     methods: {
@@ -51,25 +45,11 @@
         this.fps = localStorage.getItem('fps');
         setInterval(() => {
           const now = new Date();
-          axios({
-            method: 'get',
-            timeout: 5000,
-            responseType: 'blob',
-            url: this.url + '?' + now.getTime(),
-            auth: {
-              username: this.username,
-              password: this.password
-            }
-          }).then((response) => {
-            let element = document.getElementById(this.name);
-            if (element) {
-              element.src = window.URL.createObjectURL(response.data);
-              this.showIfHidden();
-            }
-          })
-            .catch((error) => {
-              console.log(error);
-            });
+          let element = document.getElementById(this.name);
+          if (element) {
+            element.src = this.url + '?' + now.getTime();
+            this.showIfHidden();
+          }
         }, this.fps * 1000);
       }
     },
