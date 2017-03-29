@@ -14,29 +14,21 @@ chrome.browserAction.onClicked.addListener((tab) => {
 
 const findObjectByPropertyInArray = function (nameKey, myArray) {
   for (let i = 0; i < myArray.length; i++) {
-    if (myArray[i].url === nameKey) {
+    if (myArray[i].url.includes(nameKey)) {
       return myArray[i];
     }
   }
 };
 
-const getKeyFromUrl = function (urls) {
-  let key;
-  if (urls.length === 1) {
-    key = urls[0];
-  }
-  if (urls.length > 1) {
-    urls.pop();
-    key = urls.join('?');
-  }
-  return key;
+const getKeyFromUrl = function (details) {
+  const keys = details.url.split('?');
+  return keys[0];
 };
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
   (details) => {
     const connections = JSON.parse(localStorage.getItem('connections'));
-    let urls = details.url.split('?');
-    let key = getKeyFromUrl(urls);
+    let key = getKeyFromUrl(details);
     const connection = findObjectByPropertyInArray(key, connections);
     if (connection) {
       const basicAuth = {

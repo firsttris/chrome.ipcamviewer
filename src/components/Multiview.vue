@@ -69,7 +69,11 @@
           return 'col-12';
         }
         if (this.columns === '2') {
-          this.fullHeight = false;
+          if (this.rows.length === 1) {
+            this.fullHeight = true;
+          } else {
+            this.fullHeight = false;
+          }
           return 'col-6';
         }
         if (this.columns === '3') {
