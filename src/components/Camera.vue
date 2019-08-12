@@ -17,7 +17,7 @@
     computed: {
       getUrl: function () {
         this.showIfHidden();
-        return this.url;
+        return `${this.url}+?user=${this.username}&password=${this.password}`;
       }
     },
     methods: {

@@ -24,7 +24,7 @@ const getKeyFromUrl = function (details) {
   const keys = details.url.split('?');
   return keys[0];
 };
-
+/*
 chrome.webRequest.onBeforeSendHeaders.addListener(
   (details) => {
     const connections = JSON.parse(localStorage.getItem('connections'));
@@ -45,3 +45,4 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   },
   {urls: ["<all_urls>"]},
   ["blocking", "requestHeaders"]);
+  */

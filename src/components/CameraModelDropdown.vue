@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import cameras from './../data/cameraModels.json';
+  const cameras = require('./../data/cameraModels.json');
   export default {
     props: ['parentCameraName'],
     data () {

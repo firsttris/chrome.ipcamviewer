@@ -3,7 +3,8 @@ let webpack = require("webpack"),
   fileSystem = require("fs"),
   env = require("./utils/env"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
-  WriteFilePlugin = require("write-file-webpack-plugin");
+  WriteFilePlugin = require("write-file-webpack-plugin"),
+  VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 // load the secrets
 let alias = {};
@@ -34,6 +35,7 @@ let webpackPlugins = [
     filename: "background.html",
     chunks: ["background"]
   }),
+  new VueLoaderPlugin(),
   new WriteFilePlugin()
 ];
 
@@ -65,10 +67,6 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
-        test: /\.json$/,
-        loader: "json-loader"
-      },
-      {
         test: /\.(woff2?|woff|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
@@ -88,6 +86,13 @@ module.exports = {
   },
   resolve: {
     alias: alias
+  },
+  devServer: {
+    hot: true,
+    contentBase: path.join(__dirname, "../build"),
+    headers: { "Access-Control-Allow-Origin": "*" },
+    port: 3000,
+    historyApiFallback: true
   },
   plugins: webpackPlugins,
   devtool: 'source-map'
