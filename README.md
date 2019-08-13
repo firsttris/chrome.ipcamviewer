@@ -6,7 +6,7 @@
 
 ## Features
 
-* Streams MJPEG & JPEG Source
+* Stream JPEG Camera Sources Source
 * [Camera-Presets](https://github.com/firsttris/chrome.ipcamviewer/blob/master/src/data/cameraModels.json)
 * Multiview
 * Fullscreen
@@ -28,17 +28,15 @@
     3. Click on `Load unpacked extension`
     4. Select the `build` folder
 
+### Open Issues
+MJPEG does not work performant with XML-HTTP-Requests.
+Render with Img Tag and Credentials in URL is not possible in Chrome.
+Played arround with [mjpeg-readale-stream](https://github.com/aruntj/mjpeg-readable-stream/blob/master/index.html) implementation, but was not peformant enough.
+
 #### Chrome-Extension Stack
 - [Webpack](https://webpack.github.io/)
-- [Buble](https://buble.surge.sh/)
 - [VueJs](https://github.com/vuejs/vue)
 - [Bootstraps](https://github.com/twbs/bootstrap)
-
-#### Sources
-I forked this boilerplate from [chrome-extension-webpack-boilerplate](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate)
-
-## Donate
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KEAR9ZC228YCL)
 
 ## License
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
