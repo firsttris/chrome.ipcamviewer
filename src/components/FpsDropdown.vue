@@ -1,11 +1,11 @@
 <template>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button"
-                @click="dropdown = !dropdown" aria-haspopup="true" aria-expanded="false">
+                aria-haspopup="true" aria-expanded="false" @click="dropdown = !dropdown">
             {{fps}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-             v-bind:class="{ show: dropdown }">
+             :class="{ show: dropdown }">
             <a class="dropdown-item" @click="selectFps(0.5)">0.5</a>
             <a class="dropdown-item" @click="selectFps(1)">1</a>
             <a class="dropdown-item" @click="selectFps(2)">2</a>
@@ -28,6 +28,14 @@
     },
     computed: {
     },
+    created: function () {
+      const fps = localStorage.getItem('fps');
+      if(fps) {
+        this.fps = fps
+      } else {
+        this.saveFps();
+      }
+    },
     methods: {
       selectFps: function (fps) {
         this.dropdown = !this.dropdown;
@@ -37,14 +45,6 @@
       saveFps: function () {
         localStorage.setItem('fps', this.fps);
         createNotification("Settings Saved");
-      }
-    },
-    created: function () {
-      const fps = localStorage.getItem('fps');
-      if(fps) {
-        this.fps = fps
-      } else {
-        this.saveFps();
       }
     }
   };

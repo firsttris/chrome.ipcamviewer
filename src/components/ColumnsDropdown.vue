@@ -1,12 +1,12 @@
 <template>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button"
-                @click="dropdown = !dropdown" aria-haspopup="true"
-                aria-expanded="false">
+                aria-haspopup="true" aria-expanded="false"
+                @click="dropdown = !dropdown">
             {{columns}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-             v-bind:class="{ show: dropdown }">
+             :class="{ show: dropdown }">
             <a class="dropdown-item"
                @click="selectColumns(1)">1</a>
             <a class="dropdown-item"
@@ -29,6 +29,14 @@
     },
     computed: {
     },
+    created: function () {
+      const columns = localStorage.getItem('columns');
+      if(columns) {
+        this.columns = columns
+      } else {
+        this.saveColumns();
+      }
+    },
     methods: {
       selectColumns: function (columns) {
         this.dropdown = !this.dropdown;
@@ -42,14 +50,6 @@
       saveColumns: function () {
         localStorage.setItem('columns', this.columns);
         createNotification("Settings Saved");
-      }
-    },
-    created: function () {
-      const columns = localStorage.getItem('columns');
-      if(columns) {
-        this.columns = columns
-      } else {
-        this.saveColumns();
       }
     }
   };

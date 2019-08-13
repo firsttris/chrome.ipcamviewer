@@ -8,11 +8,8 @@
   "permissions": [
     "tabs",
     "storage",
-    "browsingData",
     "notifications",
-    "http://*/",
-    "webRequest",
-    "webRequestBlocking"
+    "http://*/"
   ],
   "icons": {
     "16": "icons/icon16.png",

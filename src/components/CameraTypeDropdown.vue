@@ -1,14 +1,14 @@
 <template>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button"
-                @click="dropdown = !dropdown" aria-haspopup="true"
-                aria-expanded="false">
+                aria-haspopup="true" aria-expanded="false"
+                @click="dropdown = !dropdown">
             {{getCameraType}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-             v-bind:class="{ show: dropdown }">
+             :class="{ show: dropdown }">
             <a class="dropdown-item" @click="resetParent()">None</a>
-            <a class="dropdown-item" v-for="(cameraUrl, cameraType) in parentCameraTypes"
+            <a v-for="(cameraUrl, cameraType) in parentCameraTypes" class="dropdown-item"
                @click="selectCameraUrl(cameraUrl, cameraType)">{{cameraType.toUpperCase()}}</a>
         </div>
     </div>

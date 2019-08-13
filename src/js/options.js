@@ -3,12 +3,12 @@ import './../img/icon48.png';
 import './../img/icon128.png';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import App from "./../components/App.vue"
-import Fullscreen from './../components/Fullscreen.vue'
-import Settings from './../components/Settings.vue'
-import Multiview from './../components/Multiview.vue'
+import App from './../components/App.vue';
+import Fullscreen from './../components/Fullscreen.vue';
+import Settings from './../components/Settings.vue';
+import Multiview from './../components/Multiview.vue';
 
-chrome.storage.sync.get(["connections"], (result) => {
+chrome.storage.sync.get(['connections'], result => {
   if (result && result.connections) {
     localStorage.setItem('connections', JSON.stringify(result.connections));
   } else {

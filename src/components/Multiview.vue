@@ -1,13 +1,13 @@
 <template>
-    <div class="multiview container-fluid" v-bind:class="{ fullHeight: fullHeight }">
-        <div class="warnings" v-if="warnings || noTypeWarning">
+    <div class="multiview container-fluid" :class="{ fullHeight: fullHeight }">
+        <div v-if="warnings || noTypeWarning" class="warnings">
             <br>
             <h1 v-if="warnings">No Cameras</h1>
             <h1 v-if="noTypeWarning">No Type defined for Camera!</h1>
             <br>
             <button type="button" class="btn btn-secondary" @click="openSettings">Setup Connections</button>
         </div>
-        <div class="row flex" v-for="row in rows">
+        <div v-for="row in rows" class="row flex">
             <div v-for="connection in row" :class="getLayout">
                 <Camera :url="connection.url" :name="connection.name" :username="connection.username"
                         :password="connection.password" :type="connection.cameraType"></Camera>
@@ -31,6 +31,32 @@
         connections: [],
         rows: []
       };
+    },
+    computed: {
+      getLayout: function () {
+        if (this.columns === '1') {
+          this.fullHeight = false;
+          return 'col-12';
+        }
+        if (this.columns === '2') {
+          if (this.rows.length === 1) {
+            this.fullHeight = true;
+          } else {
+            this.fullHeight = false;
+          }
+          return 'col-6';
+        }
+        if (this.columns === '3') {
+          this.fullHeight = true;
+          return 'col-4';
+        }
+        return 'col-2'
+      }
+    },
+    created: function () {
+      this.loadLocalStorage();
+      this.checkConnections();
+      this.createRowsForColumns();
     },
     methods: {
       openSettings: function () {
@@ -61,31 +87,6 @@
         }
         this.rows = results;
       },
-    },
-    computed: {
-      getLayout: function () {
-        if (this.columns === '1') {
-          this.fullHeight = false;
-          return 'col-12';
-        }
-        if (this.columns === '2') {
-          if (this.rows.length === 1) {
-            this.fullHeight = true;
-          } else {
-            this.fullHeight = false;
-          }
-          return 'col-6';
-        }
-        if (this.columns === '3') {
-          this.fullHeight = true;
-          return 'col-4';
-        }
-      }
-    },
-    created: function () {
-      this.loadLocalStorage();
-      this.checkConnections();
-      this.createRowsForColumns();
     }
   };
 </script>

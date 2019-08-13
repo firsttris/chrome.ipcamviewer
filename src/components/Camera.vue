@@ -1,6 +1,6 @@
 <template>
-    <div class="image" :data-content="name" @click="OpenInTab" v-bind:class="{ hidden: isHidden }">
-        <img :id='name' :alt="name" :src="getUrl">
+    <div class="image" :data-content="name" :class="{ hidden: isHidden }" @click="OpenInTab">
+        <img :id='name' :alt="name">
     </div>
 </template>
 
@@ -11,14 +11,12 @@
     data () {
       return {
         isHidden: true,
-        fps: 1
+        fps: 1,
+        headers: new Headers({'Authorization': 'Basic ' + btoa(this.username + ":" + this.password)}, { 'cache-control': 'no-store' })
       };
     },
-    computed: {
-      getUrl: function () {
-        this.showIfHidden();
-        return `${this.url}+?user=${this.username}&password=${this.password}`;
-      }
+    created: function () {
+        this.createTriggerForJpgCamera();
     },
     methods: {
       showIfHidden() {
@@ -41,22 +39,38 @@
           this.$router.push({ path: 'multiview' })
         }
       },
-      createTriggerForCamera() {
+      createTriggerForJpgCamera() {
         this.fps = localStorage.getItem('fps');
         setInterval(() => {
-          const now = new Date();
           let element = document.getElementById(this.name);
           if (element) {
-            element.src = this.url + '?' + now.getTime();
+            this.fetchJpg(element);
             this.showIfHidden();
           }
         }, this.fps * 1000);
-      }
-    },
-    created: function () {
-      if (this.type === 'jpg') {
-        this.createTriggerForCamera();
-      }
+      },
+      arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+      },
+      fetchJpg(element) {
+        const options = {
+          method: 'GET',
+          headers: this.headers,
+          mode: 'cors',
+          cache: 'no-store'
+        };
+        const request = new Request(this.url);
+        fetch(request, options).then((response) => {
+          response.arrayBuffer().then((buffer) => {
+            const base64Flag = 'data:image/jpeg;base64,';
+            const imageStr = this.arrayBufferToBase64(buffer);
+            element.src = base64Flag + imageStr;
+          });
+        });
+      },
     }
   };
 </script>

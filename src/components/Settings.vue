@@ -165,7 +165,7 @@
         name: '',
         ipaddress: '',
         url: '',
-        cameraTypes: {jpg: '', mjpg: ''},
+        cameraTypes: {jpg: ''},
         cameraUrl: '',
         cameraType: '',
         cameraName: '',

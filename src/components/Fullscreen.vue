@@ -19,7 +19,6 @@
         password: '',
       };
     },
-    methods: {},
     created: function () {
       const storageAdress = this.$route.path.replace('/', '');
       const storedConnectionString = localStorage.getItem(storageAdress);
@@ -31,7 +30,8 @@
         this.username = storedConnection.username;
         this.type = storedConnection.type;
       }
-    }
+    },
+    methods: {}
   };
 </script>
 

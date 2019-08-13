@@ -2,42 +2,23 @@
     "4XEM": {
         "jpg": "/cgi-bin/video.jpg"
     },
-    "7Link": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi"
-    },
-    "ABS": {
-        "mjpg": "/mjpg/1/video.mjpg"
-    },
     "AirLink": {
-        "mjpg": "/cgi/mjpg/mjpg.cgi",
         "jpg": "/cgi/jpg/image.cgi"
     },
     "Allnet": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi",
         "jpg": "/cgi-bin/video.jpg"
-    },
-    "Apexis": {
-        "mjpg": "/videostream.cgi"
     },
     "AreContVision": {
         "jpg": "/image"
     },
     "Asante": {
-        "jpg": "/image.jpg",
-        "mjpg": "/image.jpg?type=motion"
+        "jpg": "/image.jpg"
     },
     "Astak": {
         "jpg": "/tmpfs/auto.jpg"
     },
-    "AVTech": {
-        "mjpg": "/live/mjpeg"
-    },
     "AXIS": {
-        "mjpg": "/axis-cgi/mjpg/video.cgi",
         "jpg": "/axis-cgi/jpg/image.cgi"
-    },
-    "Basler": {
-        "mjpg": "/cgi-bin/mjpeg"
     },
     "Bosch": {
         "jpg": "/snap.jpg"
@@ -46,77 +27,49 @@
         "jpg": "/snapshot.cgi"
     },
     "CANON": {
-        "jpg": "/-wvhttp-01-/GetLiveImage",
-        "mjpg": "/-wvhttp-01-/GetOneShot"
+        "jpg": "/-wvhttp-01-/GetLiveImage"
     },
     "Cellvision": {
-        "jpg": "/cgi-bin/video.jpg",
-        "mjpg": "/mjpeg.cgi"
+        "jpg": "/cgi-bin/video.jpg"
     },
     "Cisco": {
-        "mjpg": "/img/video.mjpeg",
         "jpg": "/img/snapshot.cgi"
-    },
-    "Conceptronic": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi"
     },
     "ConnectionNC": {
         "jpg": "/cgi-bin/video.jpg"
     },
     "Corega": {
-        "mjpg": "/video.cgi",
         "jpg": "/goform/capture"
     },
-    "CowKey": {
-        "mjpg": "/videostream.cgi"
-    },
     "Dericam": {
-        "jpg": "/snapshot.cgi",
-        "mjpg": "/video.cgi"
+        "jpg": "/snapshot.cgi"
     },
     "Digi-LAN": {
         "jpg": "/cgi-bin/video.jpg"
     },
-    "Digicom": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi"
-    },
     "Digitus": {
-        "jpg": "/cgi-bin/video.jpg",
-        "mjpg": "/live/mjpeg"
+        "jpg": "/cgi-bin/video.jpg"
     },
     "D-Link": {
-        "jpg": "/cgi-bin/video.jpg",
-        "mjpg": "/video/mjpg.cgi"
+        "jpg": "/cgi-bin/video.jpg"
     },
     "Edimax": {
-        "jpg": "/snapshot.jpg",
-        "mjpg": "/mjpg/video.mjpg "
-    },
-    "Elro": {
-        "mjpg": "/mjpeg.cgi"
+        "jpg": "/snapshot.jpg"
     },
     "Eyetelligent": {
         "jpg": "/images/webcam.jpg"
     },
-    "Eyseo": {
-        "mjpg": "/video.mjpeg"
-    },
     "Foscam": {
-        "mjpg": "/video.cgi",
         "jpg": "/tmpfs/auto.jpg"
     },
     "Genius": {
         "jpg": "/cgi-bin/getimage"
     },
-    "Geovision": {
-        "mjpg": "/PictureCatch.cgi"
-    },
     "Grand": {
         "jpg": "/Webcam.jpg"
     },
     "Grandtec": {
-        "jpg": "/still.jpg",
-        "mjpg": "/video.cgi"
+        "jpg": "/still.jpg"
     },
     "Hawking": {
         "jpg": "/loginfree.jpg"
@@ -125,35 +78,27 @@
         "jpg": "/Streaming/channels/1/picture"
     },
     "iBaby": {
-        "mjpg": "/video.cgi",
         "jpg": "/snapshot.cgi"
     },
     "INTELLINET": {
-        "jpg": "/jpg/image.jpg",
-        "mjpg": "/image.cgi"
+        "jpg": "/jpg/image.jpg"
     },
     "IQinVision": {
         "jpg": "/now.jpg"
     },
-    "IPCAM": {
-        "mjpg": "/videostream.cgi"
-    },
     "INSTAR": {
-        "jpg": "/tmpfs/snap.jpg",
-        "mjpg": "/cgi-bin/hi3510/mjpegstream.cgi?-chn=11"
+        "jpg": "/tmpfs/snap.jpg"
     },
     "JVC": {
         "jpg": "/cgi-bin/video.jpg"
     },
     "LevelOne": {
-        "jpg": "/cgi-bin/video.jpg",
-        "mjpg": "/video.mjpg"
+        "jpg": "/cgi-bin/video.jpg"
     },
     "LinkPro": {
         "jpg": "/mjpeg.cgi"
     },
     "Linksys": {
-        "mjpg": "/img/video.mjpeg",
         "jpg": "/img/snapshot.cgi"
     },
     "Linudix": {
@@ -163,18 +108,13 @@
         "jpg": "/snapshot.cgi"
     },
     "LongShine": {
-        "jpg": "/snapshot.cgi",
-        "mjpg": "/video.cgi"
+        "jpg": "/snapshot.cgi"
     },
     "Lorex": {
-        "mjpg": "/video.mjpg",
         "jpg": "/jpg/image.jpg"
     },
     "Lumenera": {
         "jpg": "/cgi-usr/image"
-    },
-    "Marmitek": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi"
     },
     "Merit LiLin": {
         "jpg": "/getimage"
@@ -186,7 +126,6 @@
         "jpg": "/record/current.jpg"
     },
     "NeuFusion": {
-        "mjpg": "/mjpeg.cgi",
         "jpg": "/cgi-bin/video.jpg"
     },
     "OvisLink": {
@@ -199,70 +138,48 @@
         "jpg": "/getimage"
     },
     "Palent": {
-        "jpg": "/img/video.jpg",
-        "mjpg": "/mjpg/video.mjpg"
-    },
-    "Plustek": {
-        "mjpg": "/cgi-bin/Stream?Video"
+        "jpg": "/img/video.jpg"
     },
     "QNAP Security": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi",
         "jpg": "/goform/capture"
     },
     "Quimz": {
         "jpg": "/cgi-bin/video.jpg"
     },
-    "Samsung": {
-        "mjpg": "/video?submenu=mjpg"
-    },
     "Sertek": {
-        "jpg": "/cgi-bin/video.jpg",
-        "mjpg": "/mjpeg.cgi"
+        "jpg": "/cgi-bin/video.jpg"
     },
     "Sharx": {
         "jpg": "/stream1.jpg"
     },
     "SKJM, LLC": {
-        "mjpg": "/video.mjpg",
         "jpg": "/image.jpg"
     },
     "Sony": {
-        "jpg": "/image",
-        "mjpg": "/img/mjpeg.cgi"
+        "jpg": "/image"
     },
     "Sparkian": {
-        "jpg": "/goform/capture",
-        "mjpg": "/mjpeg.cgi"
+        "jpg": "/goform/capture"
     },
     "Stardot": {
         "jpg": "/netcam.jpg"
-    },
-    "Swann": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi"
     },
     "Tenvis": {
         "jpg": "/videostream.cgi"
     },
     "TP_link": {
-        "jpg": "/jpg/image.jpg",
-        "mjpg": "/live/mjpeg"
+        "jpg": "/jpg/image.jpg"
     },
     "TrendNet": {
-        "jpg": "/cgi/jpg/image.cgi",
-        "mjpg": "/cgi/mjpg/mjpg.cgi"
+        "jpg": "/cgi/jpg/image.cgi"
     },
     "Trendware": {
         "jpg": "/cgi-bin/video.jpg"
     },
-    "Trust": {
-        "mjpg": "/mjpeg.cgi"
-    },
     "Vivotek": {
-        "mjpg": "/video.mjpg",
         "jpg": "/cgi-bin/video.jpg"
     },
     "Wansview": {
-        "mjpg": "/video.cgi",
         "jpg": "/tmpfs/auto.jpg"
     },
     "WoWee": {
@@ -271,13 +188,7 @@
     "Y-Cam": {
         "jpg": "/stream.jpg"
     },
-    "Zaapa": {
-        "mjpg": "/videostream.cgi"
-    },
     "Zavio": {
         "jpg": "/jpg/image.jpg"
-    },
-    "Zonet": {
-        "mjpg": "/cgi/mjpg/mjpeg.cgi"
     }
 }
