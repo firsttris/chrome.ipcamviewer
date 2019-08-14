@@ -9,11 +9,4 @@ base.plugins.push(
   })
 );
 
-base.optimization = {
-  splitChunks: {
-    chunks: 'all'
-  },
-  runtimeChunk: true
-};
-
 module.exports = base;
