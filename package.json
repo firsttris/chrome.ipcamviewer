@@ -1,6 +1,6 @@
 {
   "name": "ipcamviewer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Ipcam Viewer",
   "scripts": {
     "build": "webpack --env.config=prod",
