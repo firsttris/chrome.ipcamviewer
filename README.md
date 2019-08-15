@@ -40,11 +40,11 @@ When creating a new camera, don't select any model, simply enter your stream add
 
 ## MJPEG Support dropped
 
-Render an MJPEG Stream or JPEG's in a HTML < img > tag with the Credentials in the Stream URL is not possible due to Chrome Security Polices.
-My first approach was to use chrome.webrequest.onBeforeSendHeaders() to add the Credentials to the Authorization Header of the HTTP request.
+Render an MJPEG Stream or JPEG's in a HTML < img > tag with the credentials in the Stream URL is not possible due to Chrome security polices.
+My first approach was to use chrome.webrequest.onBeforeSendHeaders() to add the credentials to the authorization header of the HTTP request.
 I think this is not the best approach since you need to filter the requests of the addon (cameras) from all request the browser made.
-This requires the permission "browsingData" (be able to see all requests from the browser) which does no comply with data protection guidelines
-So we have to use XML-HTTP-Requests (fetch) to be able to add Credentials to the header.
+This requires the permission "browsingData" (be able to see all requests from the browser) which does no comply with data protection guidelines.
+So we have to use XML-HTTP-Requests (fetch) to be able to add credentials to the header.
 The only implementation i found was [mjpeg-readale-stream](https://github.com/aruntj/mjpeg-readable-stream/blob/master/index.html).
 But it was not peformant enough for daily use.
 Their is very little information on how to fetch a mjpeg-readable stream and render it to an < img > tag.
