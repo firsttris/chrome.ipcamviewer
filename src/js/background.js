@@ -7,6 +7,7 @@ chrome.browserAction.onClicked.addListener(() => {
         chrome.tabs.remove(tab.id);
       });
     }
-    chrome.tabs.create({ url: chrome.extension.getURL('popup.html#/multiview') }, () => {});
+    chrome.tabs.create({ url: chrome.extension.getURL('popup.html') }, () => {});
   });
 });
+

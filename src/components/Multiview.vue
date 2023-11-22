@@ -60,7 +60,7 @@
     },
     methods: {
       openSettings: function () {
-        this.$router.push({ path: '/' });
+        window.location.pathname = '/options.html';
       },
       loadLocalStorage: function () {
         this.columns = localStorage.getItem('columns');

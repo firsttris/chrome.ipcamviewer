@@ -34,9 +34,10 @@
         };
         if (!this.singlefull) {
           localStorage.setItem(this.name, JSON.stringify(connection));
-          this.$router.push({ path: this.name })
+          window.location.pathname = '/popup.html';
+          window.location.search = '?fullscreen';
         } else {
-          this.$router.push({ path: 'multiview' })
+          window.location.pathname = '/popup.html';
         }
       },
       createTriggerForJpgCamera() {

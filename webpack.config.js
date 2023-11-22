@@ -46,15 +46,18 @@ module.exports = {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       title: 'IPCamViewer',
-      filename: 'popup.html'
+      filename: 'popup.html',
+      template: path.join(__dirname, "src", "templates", "popup.html"),
     }),
     new HtmlWebpackPlugin({
       title: 'IPCamViewer',
-      filename: 'options.html'
+      filename: 'options.html',
+      template: path.join(__dirname, "src", "templates", "options.html"),
     }),
     new HtmlWebpackPlugin({
       title: 'IPCamViewer',
-      filename: 'background.html'
+      filename: 'background.html',
+      template: path.join(__dirname, "src", "templates", "background.html"),
     }),
     new CopyWebpackPlugin({
       patterns: [
