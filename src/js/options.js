@@ -1,8 +1,8 @@
 import './../img/icon16.png';
 import './../img/icon48.png';
 import './../img/icon128.png';
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import App from './../components/App.vue';
 import Fullscreen from './../components/Fullscreen.vue';
 import Settings from './../components/Settings.vue';
@@ -19,20 +19,15 @@ chrome.storage.sync.get(['connections'], result => {
   }
 });
 
-Vue.use(VueRouter);
-
 const routes = [
   { path: '/multiview', name: 'multiview', component: Multiview, meta: { uri: 'multiview' } },
   { path: '/', name: 'settings', component: Settings, meta: { uri: 'settings' } },
-  { path: '*', name: 'fullscreen', component: Fullscreen, meta: { uri: 'fullscreen' } }
+  { path: '/:pathMatch(.*)*', name: 'fullscreen', component: Fullscreen, meta: { uri: 'fullscreen' } }
 ];
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHistory(),
   routes
 });
 
-new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
-});
+createApp(App).use(router).mount('#app');
