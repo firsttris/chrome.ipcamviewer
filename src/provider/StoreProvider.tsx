@@ -20,7 +20,7 @@ const emptyNewConnection: Connection = {
     url: '',
     username: '',
     password: '',
-    cameraType: '', 
+    cameraType: '',
     cameraModel: ''
 };
 
@@ -73,37 +73,38 @@ export const StoreProvider = (props: StoreProviderProps) => {
         }
     };
 
-    onMount(() => {
+    onMount(async () => {
         if (!chrome?.storage) {
             if (getConnections().length === 0) {
                 createNewConnection();
             }
             return;
         }
-    
-        chrome.storage.sync.get(['connections', 'selectedConnectionId'], result => {
-            if (result.connections && result.connections.length > 0) {
-                setConnections(result.connections);
-            } else {
-                createNewConnection();
-            }
-    
-            if (result.selectedConnectionId) {
-                setSelectedConnectionId(result.selectedConnectionId);
-            }
-        });
+
+
+        const result = await chrome.storage.sync.get(['connections', 'selectedConnectionId']);
+
+        if (result?.connections?.length > 0) {
+            setConnections(result.connections);
+        } else {
+            createNewConnection();
+        }
+
+        if (result?.selectedConnectionId) {
+            setSelectedConnectionId(result.selectedConnectionId);
+        }
     });
-    
+
     createEffect(() => {
         if (!chrome?.storage) {
             return;
         }
-    
+
         const connections = getConnections();
         if (connections.length > 0) {
             chrome.storage.sync.set({ connections });
         }
-    
+
         const selectedConnectionId = getSelectedConnectionId();
         if (selectedConnectionId) {
             chrome.storage.sync.set({ selectedConnectionId });
@@ -129,7 +130,7 @@ export const StoreProvider = (props: StoreProviderProps) => {
 export const useStore = () => {
     const context = useContext(StoreContext);
     if (context === undefined) {
-      throw new Error('useStore must be used within a StoreProvider');
+        throw new Error('useStore must be used within a StoreProvider');
     }
     return context;
-  }
+}
