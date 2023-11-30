@@ -1,5 +1,5 @@
 
-import { createSignal, For } from 'solid-js';
+import { createEffect, createSignal, For, onCleanup } from 'solid-js';
 
 type Option = {
   label: string
@@ -10,11 +10,27 @@ type DropDownProps = {
   dropdownLabel: string
   options: Option[]
   selectedValue: string
-  onSelect: (value: string | null) => void
+  onSelect: (value?: string) => void
 }
 
 export const Dropdown = (props: DropDownProps) => {
   const [isOpen, setIsOpen] = createSignal(false);
+
+  const closeDropdown = (event: Event) => {
+    if ((event.target as HTMLElement).closest('.dropdown') === null) {
+      setIsOpen(false);
+    }
+  };
+
+  createEffect(() => {
+    if (isOpen()) {
+      document.addEventListener('click', closeDropdown);
+    } else {
+      document.removeEventListener('click', closeDropdown);
+    }
+  });
+
+  onCleanup(() => document.removeEventListener('click', closeDropdown));
 
   return (
     <div class="form-group row mt-2">
@@ -27,19 +43,25 @@ export const Dropdown = (props: DropDownProps) => {
           >
             {props.selectedValue}
           </button>
-          <div
+          <div style={{ "max-height": '80vh', "overflow-y": 'auto' }}
             aria-labelledby="dropdownMenuButton"
             class="dropdown-menu mt-1 user-select-none"
             classList={{ 'd-block': isOpen() }}
           >
-            <a class="dropdown-item" onClick={() => props.onSelect(null)}>
+            <a class="dropdown-item" onClick={() => {
+              props.onSelect()
+              setIsOpen(false)
+            }}>
               None
             </a>
             <For each={props.options}>
               {(option) => (
                 <a class="dropdown-item"
 
-                  onClick={() => props.onSelect(option.value)}
+                  onClick={() => {
+                    props.onSelect(option.value)
+                    setIsOpen(false)
+                  }}
                 >
                   {option.label}
                 </a>
