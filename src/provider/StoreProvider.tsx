@@ -20,7 +20,7 @@ export type Connection = {
   preset: string,
 };
 
-const emptyNewConnection: Connection = {
+export const emptyNewConnection: Connection = {
   id: '',
   name: '',
   ipAdress: '',

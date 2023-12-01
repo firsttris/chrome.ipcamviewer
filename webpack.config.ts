@@ -6,7 +6,7 @@ import { Configuration, WebpackOptionsNormalized } from 'webpack';
 const config: (env: Record<string, boolean | string>, argv: WebpackOptionsNormalized) => Configuration = (env, argv) => {
     return {
         entry: {
-            popup: './src/popup.tsx',
+            multiview: './src/multiview.tsx',
             options: './src/options.tsx',
         },
         output: {

@@ -15,6 +15,24 @@ export const Settings = () => {
     setSelectedConnectionId
   } = useStore();
 
+  const setUrlBasedOnStreamType = (presetName?: string, streamType?: string) => {
+    const preset = presets.find((p) => p.name === presetName);
+    if (preset) {
+      const url = streamType === 'mjpeg' ? preset.stream.mjpg : preset.stream.jpg;
+      setSelectedConnectionAttribute('url', url ?? '');
+    }
+  }
+
+  const selectCameraPreset = (value?: string) => {
+    setUrlBasedOnStreamType(value, getSelectedConnectionAttribute('streamType'));
+    setSelectedConnectionAttribute('preset', value ?? '')
+  }
+
+  const selectStreamType = (value?: string) => {
+    setUrlBasedOnStreamType(getSelectedConnectionAttribute('preset'), value);
+    setSelectedConnectionAttribute('streamType', value as 'jpeg' | 'mjpeg')
+  }
+
   return (
     <div class="container pt-3">
       <div class="row">
@@ -24,20 +42,13 @@ export const Settings = () => {
             dropdownLabel="Connections"
             options={getConnectionNames()}
             selectedValue={getSelectedConnectionAttribute('name')}
-            onSelect={(value) => value && setSelectedConnectionId(value)}
+            onSelect={(value) => setSelectedConnectionId(value ?? '')}
           />
           <Dropdown
             dropdownLabel="Camera Presets"
             options={getPresetNames}
             selectedValue={getSelectedConnectionAttribute('preset')}
-            onSelect={(value) => {
-              const preset = presets.find((p) => p.name === value);
-              if (preset) {
-                const url = getSelectedConnectionAttribute('streamType') === 'mjpeg' ? preset.stream.mjpg : preset.stream.jpg;
-                setSelectedConnectionAttribute('url', url ?? '');
-              }
-              setSelectedConnectionAttribute('preset', value ?? '')
-            }}
+            onSelect={selectCameraPreset}
           />
           <Dropdown
             dropdownLabel="Stream Type"
@@ -46,14 +57,7 @@ export const Settings = () => {
               { label: 'MJPEG', value: 'mjpeg' },
             ]}
             selectedValue={getSelectedConnectionAttribute('streamType')?.toLocaleUpperCase()}
-            onSelect={(value) => {
-              const preset = presets.find((p) => p.name === getSelectedConnectionAttribute('preset'));
-              if (preset) {
-                const url = value === 'mjpeg' ? preset.stream.mjpg : preset.stream.jpg;
-                setSelectedConnectionAttribute('url', url ?? '');
-              }
-              setSelectedConnectionAttribute('streamType', value as 'jpeg' | 'mjpeg')
-            }}
+            onSelect={selectStreamType}
           />
           <InputField id="name" label="Name" placeholder="Camera Name" />
           <InputField id="ipAdress" label="IP-Address" placeholder="Address" />

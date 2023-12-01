@@ -10,8 +10,6 @@ export const ButtonGroup = () => {
       <button type="button" class="btn btn-secondary ms-2" onClick={() => {}}>Copy</button>
         <button type="button" class="btn btn-secondary ms-2" onClick={() => {} }>Delete</button>
         <button type="button" class="btn btn-secondary ms-2" onClick={() => {}}>Delete All</button>
-        
-        
       </div>
     </div>
   );

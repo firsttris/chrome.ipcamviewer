@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import { render } from 'solid-js/web';
 import { StoreProvider } from './provider/StoreProvider';
-import { ApiProvider } from './provider/ApiProvider';
 import type { JSX } from 'solid-js';
 
 interface ProviderWrapperProps {
@@ -11,9 +10,7 @@ interface ProviderWrapperProps {
 
 const ProviderWrapper = (props: ProviderWrapperProps) => (
     <StoreProvider>
-        <ApiProvider>
-            {props.children}
-        </ApiProvider>
+        {props.children}
     </StoreProvider>
 );
 

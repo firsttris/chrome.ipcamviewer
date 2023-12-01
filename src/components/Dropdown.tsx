@@ -41,7 +41,7 @@ export const Dropdown = (props: DropDownProps) => {
             class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
             onClick={() => setIsOpen(!isOpen())}
           >
-            {props.selectedValue}
+            {props.selectedValue || 'Select an option' }
           </button>
           <div style={{ "max-height": '80vh', "overflow-y": 'auto' }}
             aria-labelledby="dropdownMenuButton"

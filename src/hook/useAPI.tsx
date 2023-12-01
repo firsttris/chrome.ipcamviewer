@@ -1,20 +1,13 @@
-import { createContext, createSignal, useContext } from 'solid-js';
-import type { JSX } from 'solid-js';
+import { createSignal } from 'solid-js';
 
-type StoreProviderProps = {
-  children: JSX.Element,
-};
-
-type ContextType = {
+type UseApiType = {
   updateJPEG: (url: string, username: string, password: string) => Promise<void>,
   updateMPEG: (url: string, username: string, password: string) => Promise<void>,
   getVideoUrl: () => string | undefined,
   getImgUrl: () => string | undefined,
 };
 
-const ApiContext = createContext<ContextType>();
-
-export const ApiProvider = (props: StoreProviderProps) => {
+export const useApi = (): UseApiType => {
   const [getVideoUrl, setVideoUrl] = createSignal<string | undefined>(undefined);
   const [getImgUrl, setImgUrl] = createSignal<string | undefined>(undefined);
 
@@ -102,17 +95,5 @@ export const ApiProvider = (props: StoreProviderProps) => {
     //sourceElement.type = 'video/mp4';
   };
 
-  return (
-    <ApiContext.Provider value={{ updateMPEG, updateJPEG, getVideoUrl, getImgUrl }}>
-      {props.children}
-    </ApiContext.Provider>
-  );
-};
-
-export const useApi = () => {
-  const context = useContext(ApiContext);
-  if (context === undefined) {
-    throw new Error('useApi must be used within a ApiProvider');
-  }
-  return context;
+  return { updateMPEG, updateJPEG, getVideoUrl, getImgUrl };
 };
