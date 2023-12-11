@@ -1,5 +1,5 @@
-chrome.browserAction.onClicked.addListener(() => {
-    const optionsUrl = chrome.extension.getURL('') + '*';
+chrome.action.onClicked.addListener(() => {
+    const optionsUrl = chrome.runtime.getURL('') + '*';
     chrome.tabs.query({ url: optionsUrl }, tabs => {
       if (tabs.length) {
         tabs.forEach(tab => {
@@ -9,6 +9,6 @@ chrome.browserAction.onClicked.addListener(() => {
           }
         });
       }
-      chrome.tabs.create({ url: chrome.extension.getURL('multiview.html') }, () => {});
+      chrome.tabs.create({ url: chrome.runtime.getURL('multiview.html') }, () => {});
     });
   });
