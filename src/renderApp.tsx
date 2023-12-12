@@ -16,9 +16,5 @@ const ProviderWrapper = (props: ProviderWrapperProps) => (
 
 export const renderApp = (Component: () => JSX.Element) => {
     const element = document.getElementById('root');
-    if (element) {
-        render(() => <ProviderWrapper><Component /></ProviderWrapper>, element);
-    } else {
-        console.error(`Element with id root not found`);
-    }
+    render(() => <ProviderWrapper><Component /></ProviderWrapper>, element!);
 }
